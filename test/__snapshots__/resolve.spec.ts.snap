@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Route resolution resolves dynamic nested routes 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "component": "@/pages/users/_id/foo.vue",
+            "name": "users-id-foo",
+            "path": "foo",
+          },
+        ],
+        "component": "@/pages/users/_id.vue",
+        "name": "users-id",
+        "path": ":id",
+      },
+      Object {
+        "component": "@/pages/users/test.vue",
+        "name": "users-test",
+        "path": "test",
+      },
+    ],
+    "component": "@/pages/users.vue",
+    "name": "users",
+    "path": "/users",
+  },
+]
+`;
+
+exports[`Route resolution resolves dynamic routes 1`] = `
+Array [
+  Object {
+    "component": "@/pages/users/_id.vue",
+    "name": "users-id",
+    "path": "/users/:id",
+  },
+]
+`;
+
+exports[`Route resolution resolves nested routes 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "component": "@/pages/foo/index.vue",
+        "name": "foo-index",
+        "path": "",
+      },
+      Object {
+        "component": "@/pages/foo/bar.vue",
+        "name": "foo-bar",
+        "path": "bar",
+      },
+    ],
+    "component": "@/pages/foo.vue",
+    "name": "foo",
+    "path": "/foo",
+  },
+]
+`;
+
+exports[`Route resolution resolves routes 1`] = `
+Array [
+  Object {
+    "component": "@/pages/index.vue",
+    "name": "index",
+    "path": "/",
+  },
+  Object {
+    "component": "@/pages/foo.vue",
+    "name": "foo",
+    "path": "/foo",
+  },
+  Object {
+    "component": "@/pages/baz.vue",
+    "name": "baz",
+    "path": "/baz",
+  },
+]
+`;
+
+exports[`Route resolution resolves spase nested routes 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "component": "@/pages/users/session/login.vue",
+        "name": "users-session-login",
+        "path": "session/login",
+      },
+    ],
+    "component": "@/pages/users.vue",
+    "name": "users",
+    "path": "/users",
+  },
+]
+`;

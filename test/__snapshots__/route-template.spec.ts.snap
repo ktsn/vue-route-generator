@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Route template should generate nested routes 1`] = `
+"export default [
+  {
+    name: 'foo',
+    path: '/foo',
+    component: () => import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue'),
+    children: [
+  {
+    name: 'bar',
+    path: 'bar',
+    component: () => import(/* webpackChunkName: \\"bar\\" */ '@/pages/bar.vue')
+  },
+  {
+    name: 'baz',
+    path: 'baz',
+    component: () => import(/* webpackChunkName: \\"baz\\" */ '@/pages/baz.vue')
+  }]
+  }]"
+`;
+
+exports[`Route template should generate routes 1`] = `
+"export default [
+  {
+    name: 'foo',
+    path: '/foo',
+    component: () => import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
+  },
+  {
+    name: 'bar',
+    path: '/bar',
+    component: () => import(/* webpackChunkName: \\"bar\\" */ '@/pages/bar.vue')
+  }]"
+`;
