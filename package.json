@@ -2,8 +2,13 @@
   "name": "vue-route-generator",
   "version": "0.0.0",
   "author": "katashin",
-  "description": "",
-  "keywords": [],
+  "description": "Vue Router route config generator",
+  "keywords": [
+    "Vue",
+    "Vue Router",
+    "routing",
+    "generator"
+  ],
   "license": "MIT",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
