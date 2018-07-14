@@ -9,9 +9,9 @@ This tool generates a JavaScript code that exporting Vue Router's `routes` confi
 For example, when you have following file structure:
 
 ```
-pages
+pages/
 ├── index.vue
-└── users.vue
+└── users/
     └── _id.vue
 ```
 
