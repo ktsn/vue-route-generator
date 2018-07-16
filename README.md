@@ -13,6 +13,7 @@ For example, when you have following file structure:
 ```
 pages/
 ├── index.vue
+├── users.vue
 └── users/
     └── _id.vue
 ```
