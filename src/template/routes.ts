@@ -18,13 +18,15 @@ function createRoute(meta: PageMeta): string {
 
 function createImport(meta: PageMeta, dynamic: boolean): string {
   const code = dynamic
-  ? `const ${meta.specifier} = () => import(/* webpackChunkName: "${meta.name}" */ '${
-    meta.component
-  }')`
-  : `import ${meta.specifier} from '${meta.component}'`
+    ? `const ${meta.specifier} = () => import(/* webpackChunkName: "${
+        meta.name
+      }" */ '${meta.component}')`
+    : `import ${meta.specifier} from '${meta.component}'`
 
   return meta.children
-    ? [code].concat(meta.children.map(child => createImport(child, dynamic))).join('\n')
+    ? [code]
+        .concat(meta.children.map(child => createImport(child, dynamic)))
+        .join('\n')
     : code
 }
 
