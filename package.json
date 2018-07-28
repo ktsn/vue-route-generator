@@ -50,8 +50,8 @@
   "devDependencies": {
     "@types/jest": "^22.2.2",
     "@types/node": "^10.5.2",
+    "@types/prettier": "^1.13.2",
     "jest": "^22.4.3",
-    "prettier": "1.11.1",
     "ts-jest": "^22.4.2",
     "tslint": "^5.9.1",
     "tslint-config-ktsn": "^2.1.0",
@@ -61,7 +61,8 @@
     "vue-template-compiler": "^2.5.16"
   },
   "dependencies": {
-    "fast-glob": "^2.2.2"
+    "fast-glob": "^2.2.2",
+    "prettier": "1.11.1"
   },
   "peerDependencies": {
     "vue-template-compiler": "^2.0.0"

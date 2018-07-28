@@ -1,3 +1,4 @@
+import * as prettier from 'prettier'
 import { PageMeta } from '../resolve'
 
 function createChildrenRoute(children: PageMeta[]): string {
@@ -37,5 +38,8 @@ function createImport(meta: PageMeta, dynamic: boolean): string {
 export function createRoutes(meta: PageMeta[], dynamic: boolean): string {
   const imports = meta.map(m => createImport(m, dynamic)).join('\n')
   const code = meta.map(createRoute).join(',')
-  return `${imports}\n\nexport default [${code}]`
+  return prettier.format(`${imports}\n\nexport default [${code}]`, {
+    semi: false,
+    singleQuote: true
+  })
 }
