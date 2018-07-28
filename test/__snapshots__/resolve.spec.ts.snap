@@ -10,21 +10,25 @@ Array [
             "component": "@/pages/users/_id/foo.vue",
             "name": "users-id-foo",
             "path": "foo",
+            "specifier": "UsersIdFoo",
           },
         ],
         "component": "@/pages/users/_id.vue",
         "name": "users-id",
         "path": ":id",
+        "specifier": "UsersId",
       },
       Object {
         "component": "@/pages/users/test.vue",
         "name": "users-test",
         "path": "test",
+        "specifier": "UsersTest",
       },
     ],
     "component": "@/pages/users.vue",
     "name": "users",
     "path": "/users",
+    "specifier": "Users",
   },
 ]
 `;
@@ -35,6 +39,7 @@ Array [
     "component": "@/pages/users/_id.vue",
     "name": "users-id",
     "path": "/users/:id",
+    "specifier": "UsersId",
   },
 ]
 `;
@@ -47,16 +52,38 @@ Array [
         "component": "@/pages/foo/index.vue",
         "name": "foo-index",
         "path": "",
+        "specifier": "FooIndex",
       },
       Object {
         "component": "@/pages/foo/bar.vue",
         "name": "foo-bar",
         "path": "bar",
+        "specifier": "FooBar",
       },
     ],
     "component": "@/pages/foo.vue",
     "name": "foo",
     "path": "/foo",
+    "specifier": "Foo",
+  },
+]
+`;
+
+exports[`Route resolution resolves number prefixed route 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "component": "@/pages/1test/2nested.vue",
+        "name": "1test-2nested",
+        "path": "2nested",
+        "specifier": "_1Test2Nested",
+      },
+    ],
+    "component": "@/pages/1test.vue",
+    "name": "1test",
+    "path": "/1test",
+    "specifier": "_1Test",
   },
 ]
 `;
@@ -67,16 +94,19 @@ Array [
     "component": "@/pages/index.vue",
     "name": "index",
     "path": "/",
+    "specifier": "Index",
   },
   Object {
     "component": "@/pages/foo.vue",
     "name": "foo",
     "path": "/foo",
+    "specifier": "Foo",
   },
   Object {
     "component": "@/pages/baz.vue",
     "name": "baz",
     "path": "/baz",
+    "specifier": "Baz",
   },
 ]
 `;
@@ -89,11 +119,13 @@ Array [
         "component": "@/pages/users/session/login.vue",
         "name": "users-session-login",
         "path": "session/login",
+        "specifier": "UsersSessionLogin",
       },
     ],
     "component": "@/pages/users.vue",
     "name": "users",
     "path": "/users",
+    "specifier": "Users",
   },
 ]
 `;
