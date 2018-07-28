@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Route resolution resolve route meta 1`] = `
+Array [
+  Object {
+    "component": "@/pages/meta.vue",
+    "name": "meta",
+    "path": "/meta",
+    "routeMeta": Object {
+      "title": "Hello",
+    },
+    "specifier": "Meta",
+  },
+]
+`;
+
 exports[`Route resolution resolves dynamic nested routes 1`] = `
 Array [
   Object {

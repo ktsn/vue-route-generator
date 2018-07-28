@@ -24,6 +24,20 @@ export default [
   }]"
 `;
 
+exports[`Route template should generate route meta 1`] = `
+"import Foo from '@/pages/foo.vue'
+
+export default [
+  {
+    name: 'foo',
+    path: '/foo',
+    component: Foo,
+meta: {
+  \\"title\\": \\"Hello\\"
+}
+  }]"
+`;
+
 exports[`Route template should generate routes 1`] = `
 "const Foo = () => import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
 const Bar = () => import(/* webpackChunkName: \\"bar\\" */ '@/pages/bar.vue')

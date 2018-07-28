@@ -1,3 +1,4 @@
+import { parseComponent } from 'vue-template-compiler'
 import { NestedMap, setToMap } from './nested-map'
 
 export interface PageMeta {
@@ -6,11 +7,15 @@ export interface PageMeta {
   path: string
   component: string
   children?: PageMeta[]
+  routeMeta?: any
 }
+
+const routeMetaName = 'route-meta'
 
 export function resolveRoutePaths(
   paths: string[],
-  importPrefix: string
+  importPrefix: string,
+  readFile: (path: string) => string
 ): PageMeta[] {
   const map: NestedMap<string[]> = {}
 
@@ -19,16 +24,18 @@ export function resolveRoutePaths(
     setToMap(map, pathToMapPath(path), path)
   })
 
-  return pathMapToMeta(map, importPrefix)
+  return pathMapToMeta(map, importPrefix, readFile)
 }
 
 function pathMapToMeta(
   map: NestedMap<string[]>,
   importPrefix: string,
+  readFile: (path: string) => string,
   parentDepth: number = 0
 ): PageMeta[] {
   if (map.value) {
     const path = map.value
+
     const meta: PageMeta = {
       name: pathToName(path),
       specifier: pathToSpecifier(path),
@@ -36,10 +43,28 @@ function pathMapToMeta(
       component: importPrefix + path.join('/')
     }
 
+    const content = readFile(path.join('/'))
+    const parsed = parseComponent(content)
+    const routeMetaBlock = parsed.customBlocks.find(
+      b => b.type === routeMetaName
+    )
+
+    if (routeMetaBlock) {
+      try {
+        meta.routeMeta = JSON.parse(routeMetaBlock.content)
+      } catch (err) {
+        throw new Error(
+          `Invalid json format of <route-meta> content in ${path.join('/')}\n` +
+            err.message
+        )
+      }
+    }
+
     if (map.children) {
       meta.children = pathMapChildrenToMeta(
         map.children,
         importPrefix,
+        readFile,
         path.length
       )
     }
@@ -48,17 +73,18 @@ function pathMapToMeta(
   }
 
   return map.children
-    ? pathMapChildrenToMeta(map.children, importPrefix, parentDepth)
+    ? pathMapChildrenToMeta(map.children, importPrefix, readFile, parentDepth)
     : []
 }
 
 function pathMapChildrenToMeta(
   children: Map<string, NestedMap<string[]>>,
   importPrefix: string,
+  readFile: (path: string) => string,
   parentDepth: number
 ): PageMeta[] {
   return Array.from(children.values()).reduce<PageMeta[]>((acc, value) => {
-    return acc.concat(pathMapToMeta(value, importPrefix, parentDepth))
+    return acc.concat(pathMapToMeta(value, importPrefix, readFile, parentDepth))
   }, [])
 }
 

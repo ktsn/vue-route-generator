@@ -8,11 +8,15 @@ function createChildrenRoute(children: PageMeta[]): string {
 function createRoute(meta: PageMeta): string {
   const children = !meta.children ? '' : createChildrenRoute(meta.children)
 
+  const routeMeta = !meta.routeMeta
+    ? ''
+    : ',\nmeta: ' + JSON.stringify(meta.routeMeta, null, 2)
+
   return `
   {
     name: '${meta.name}',
     path: '${meta.path}',
-    component: ${meta.specifier}${children}
+    component: ${meta.specifier}${routeMeta}${children}
   }`
 }
 

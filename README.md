@@ -86,6 +86,39 @@ export default new Router({
 
 The routing is inspired by [Nuxt routing](https://nuxtjs.org/guide/routing) and is implemented with the same functionality.
 
+## Route Meta
+
+If the components have `<route-meta>` custom block, its json content is passed to generated route meta.
+
+For example, if `index.vue` has the following `<route-meta>` block:
+
+```vue
+<route-meta>
+{
+  "title": "Hello"
+}
+</route-meta>
+
+<template>
+  <h1>Hello</h1>
+</template>
+```
+
+The generated route config is like following:
+
+```js
+module.exports = [
+  {
+    name: 'index',
+    path: '/',
+    component: () => import('@/pages/index.vue'),
+    meta: {
+      title: 'Hello'
+    }
+  }
+]
+```
+
 ## References
 
 ### `generateRoutes(config: GenerateConfig): string`
