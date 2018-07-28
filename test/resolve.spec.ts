@@ -1,9 +1,31 @@
 import { resolveRoutePaths } from '../src/resolve'
 
+function mockReadFile(path: string): string {
+  if (path === 'meta.vue') {
+    return `<route-meta>
+    {
+      "title": "Hello"
+    }
+    </route-meta>`
+  }
+
+  if (path === 'invalid-meta.vue') {
+    return `<route-meta>
+    {
+      "invalid": "Test",
+    }
+    </route-meta>`
+  }
+
+  return ''
+}
+
 describe('Route resolution', () => {
   function test(name: string, paths: string[]): void {
     it(name, () => {
-      expect(resolveRoutePaths(paths, '@/pages/')).toMatchSnapshot()
+      expect(
+        resolveRoutePaths(paths, '@/pages/', mockReadFile)
+      ).toMatchSnapshot()
     })
   }
 
@@ -23,4 +45,14 @@ describe('Route resolution', () => {
   test('resolves spase nested routes', ['users.vue', 'users/session/login.vue'])
 
   test('resolves number prefixed route', ['1test.vue', '1test/2nested.vue'])
+
+  test('resolve route meta', ['meta.vue'])
+
+  it('throws error when failed to parse route-meta', () => {
+    expect(() => {
+      resolveRoutePaths(['invalid-meta.vue'], '@/pages/', mockReadFile)
+    }).toThrow(
+      /Invalid json format of <route-meta> content in invalid-meta\.vue/
+    )
+  })
 })

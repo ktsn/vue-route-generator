@@ -1,3 +1,4 @@
+import * as fs from 'fs'
 import * as fg from 'fast-glob'
 import { createRoutes } from './template/routes'
 import { resolveRoutePaths } from './resolve'
@@ -18,7 +19,11 @@ export function generateRoutes({
     onlyFiles: true
   })
 
-  const metaList = resolveRoutePaths(pagePaths, importPrefix)
+  const metaList = resolveRoutePaths(pagePaths, importPrefix, readFile)
 
   return createRoutes(metaList, dynamicImport)
+}
+
+function readFile(path: string): string {
+  return fs.readFileSync(path, 'utf8')
 }

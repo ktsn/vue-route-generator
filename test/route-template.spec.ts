@@ -66,4 +66,20 @@ describe('Route template', () => {
 
     expect(createRoutes(meta, false)).toMatchSnapshot()
   })
+
+  it('should generate route meta', () => {
+    const meta: PageMeta[] = [
+      {
+        name: 'foo',
+        specifier: 'Foo',
+        path: '/foo',
+        component: '@/pages/foo.vue',
+        routeMeta: {
+          title: 'Hello'
+        }
+      }
+    ]
+
+    expect(createRoutes(meta, false)).toMatchSnapshot()
+  })
 })

@@ -56,9 +56,14 @@
     "tslint": "^5.9.1",
     "tslint-config-ktsn": "^2.1.0",
     "tslint-config-prettier": "^1.10.0",
-    "typescript": "^2.8.1"
+    "typescript": "^2.8.1",
+    "vue": "^2.5.16",
+    "vue-template-compiler": "^2.5.16"
   },
   "dependencies": {
     "fast-glob": "^2.2.2"
+  },
+  "peerDependencies": {
+    "vue-template-compiler": "^2.0.0"
   }
 }
