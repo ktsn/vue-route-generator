@@ -1,6 +1,6 @@
 {
   "name": "vue-route-generator",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "katashin",
   "description": "Vue Router route config generator",
   "keywords": [
