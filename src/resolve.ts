@@ -2,6 +2,7 @@ import { NestedMap, setToMap } from './nested-map'
 
 export interface PageMeta {
   name: string
+  specifier: string
   path: string
   component: string
   children?: PageMeta[]
@@ -30,6 +31,7 @@ function pathMapToMeta(
     const path = map.value
     const meta: PageMeta = {
       name: pathToName(path),
+      specifier: pathToSpecifier(path),
       path: pathToRoute(path, parentDepth),
       component: importPrefix + path.join('/')
     }
@@ -82,6 +84,17 @@ function pathToName(segments: string[]): string {
       return s[0] === '_' ? s.slice(1) : s
     })
     .join('-')
+}
+
+function pathToSpecifier(segments: string[]): string {
+  const name = pathToName(segments)
+  const replaced = name
+    .replace(/(^|[^a-zA-Z])([a-zA-Z])/g, (_, a, b) => {
+      return a + b.toUpperCase()
+    })
+    .replace(/[^a-zA-Z0-9]/g, '')
+
+  return /^\d/.test(replaced) ? '_' + replaced : replaced
 }
 
 function pathToRoute(segments: string[], parentDepth: number): string {

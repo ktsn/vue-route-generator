@@ -30,7 +30,7 @@ const code = generateRoutes({
 console.log(code)
 ```
 
-vue-route-generator will generate the following code (beautified the indentations etc.):
+vue-route-generator will generate like the following code (beautified the indentations etc.):
 
 ```js
 export default [
@@ -94,6 +94,7 @@ The routing is inspired by [Nuxt routing](https://nuxtjs.org/guide/routing) and 
 
 * `pages`: Path to the directory that contains your page components.
 * `importPrefix`: A string that will be added to importing component path (default `@/pages/`).
+* `dynamicImport`: Use dynamic import expression (`import()`) to import component (default `true`).
 
 ## Related Projects
 

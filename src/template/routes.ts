@@ -12,13 +12,26 @@ function createRoute(meta: PageMeta): string {
   {
     name: '${meta.name}',
     path: '${meta.path}',
-    component: () => import(/* webpackChunkName: "${meta.name}" */ '${
-    meta.component
-  }')${children}
+    component: ${meta.specifier}${children}
   }`
 }
 
-export function createRoutes(meta: PageMeta[]): string {
+function createImport(meta: PageMeta, dynamic: boolean): string {
+  const code = dynamic
+    ? `const ${meta.specifier} = () => import(/* webpackChunkName: "${
+        meta.name
+      }" */ '${meta.component}')`
+    : `import ${meta.specifier} from '${meta.component}'`
+
+  return meta.children
+    ? [code]
+        .concat(meta.children.map(child => createImport(child, dynamic)))
+        .join('\n')
+    : code
+}
+
+export function createRoutes(meta: PageMeta[], dynamic: boolean): string {
+  const imports = meta.map(m => createImport(m, dynamic)).join('\n')
   const code = meta.map(createRoute).join(',')
-  return `export default [${code}]`
+  return `${imports}\n\nexport default [${code}]`
 }

@@ -21,4 +21,6 @@ describe('Route resolution', () => {
   ])
 
   test('resolves spase nested routes', ['users.vue', 'users/session/login.vue'])
+
+  test('resolves number prefixed route', ['1test.vue', '1test/2nested.vue'])
 })
