@@ -95,7 +95,7 @@ For example, if `index.vue` has the following `<route-meta>` block:
 ```vue
 <route-meta>
 {
-  "title": "Hello"
+  "requiresAuth": true
 }
 </route-meta>
 
@@ -113,7 +113,7 @@ module.exports = [
     path: '/',
     component: () => import('@/pages/index.vue'),
     meta: {
-      title: 'Hello'
+      requiresAuth: true
     }
   }
 ]
