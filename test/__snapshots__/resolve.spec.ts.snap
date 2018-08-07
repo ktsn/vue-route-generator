@@ -19,6 +19,12 @@ Array [
   Object {
     "children": Array [
       Object {
+        "component": "@/pages/users/test.vue",
+        "name": "users-test",
+        "path": "test",
+        "specifier": "UsersTest",
+      },
+      Object {
         "children": Array [
           Object {
             "component": "@/pages/users/_id/foo.vue",
@@ -31,12 +37,6 @@ Array [
         "name": "users-id",
         "path": ":id",
         "specifier": "UsersId",
-      },
-      Object {
-        "component": "@/pages/users/test.vue",
-        "name": "users-test",
-        "path": "test",
-        "specifier": "UsersTest",
       },
     ],
     "component": "@/pages/users.vue",
