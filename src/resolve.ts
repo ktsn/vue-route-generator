@@ -83,9 +83,22 @@ function pathMapChildrenToMeta(
   readFile: (path: string) => string,
   parentDepth: number
 ): PageMeta[] {
-  return Array.from(children.values()).reduce<PageMeta[]>((acc, value) => {
-    return acc.concat(pathMapToMeta(value, importPrefix, readFile, parentDepth))
-  }, [])
+  return Array.from(children.values())
+    .reduce<PageMeta[]>((acc, value) => {
+      return acc.concat(
+        pathMapToMeta(value, importPrefix, readFile, parentDepth)
+      )
+    }, [])
+    .sort(
+      (a, b) =>
+        isPathVariable(a.path)
+          ? isPathVariable(b.path) ? 0 : 1
+          : isPathVariable(b.path) ? -1 : 0
+    )
+}
+
+function isPathVariable(path: string): boolean {
+  return path[0] === ':'
 }
 
 function isDynamicRoute(segment: string): boolean {
