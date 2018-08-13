@@ -77,6 +77,17 @@ function pathMapToMeta(
     : []
 }
 
+function sortPathsFixedBeforeDynamic(a: string, b: string) {
+  const aIsVariable = isPathVariable(a)
+  const bIsVariable = isPathVariable(b)
+
+  if (aIsVariable) {
+    return bIsVariable ? 0 : 1
+  }
+
+  return bIsVariable ? -1 : 0
+}
+
 function pathMapChildrenToMeta(
   children: Map<string, NestedMap<string[]>>,
   importPrefix: string,
@@ -89,12 +100,7 @@ function pathMapChildrenToMeta(
         pathMapToMeta(value, importPrefix, readFile, parentDepth)
       )
     }, [])
-    .sort(
-      (a, b) =>
-        isPathVariable(a.path)
-          ? isPathVariable(b.path) ? 0 : 1
-          : isPathVariable(b.path) ? -1 : 0
-    )
+    .sort((a, b) => sortPathsFixedBeforeDynamic(a.path, b.path))
 }
 
 function isPathVariable(path: string): boolean {
