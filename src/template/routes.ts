@@ -39,6 +39,7 @@ export function createRoutes(meta: PageMeta[], dynamic: boolean): string {
   const imports = meta.map(m => createImport(m, dynamic)).join('\n')
   const code = meta.map(createRoute).join(',')
   return prettier.format(`${imports}\n\nexport default [${code}]`, {
+    parser: 'babylon',
     semi: false,
     singleQuote: true
   })
