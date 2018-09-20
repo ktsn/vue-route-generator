@@ -77,15 +77,34 @@ function pathMapToMeta(
     : []
 }
 
+function sortPathsFixedBeforeDynamic(a: string, b: string) {
+  const aIsVariable = isPathVariable(a)
+  const bIsVariable = isPathVariable(b)
+
+  if (aIsVariable) {
+    return bIsVariable ? 0 : 1
+  }
+
+  return bIsVariable ? -1 : 0
+}
+
 function pathMapChildrenToMeta(
   children: Map<string, NestedMap<string[]>>,
   importPrefix: string,
   readFile: (path: string) => string,
   parentDepth: number
 ): PageMeta[] {
-  return Array.from(children.values()).reduce<PageMeta[]>((acc, value) => {
-    return acc.concat(pathMapToMeta(value, importPrefix, readFile, parentDepth))
-  }, [])
+  return Array.from(children.values())
+    .reduce<PageMeta[]>((acc, value) => {
+      return acc.concat(
+        pathMapToMeta(value, importPrefix, readFile, parentDepth)
+      )
+    }, [])
+    .sort((a, b) => sortPathsFixedBeforeDynamic(a.path, b.path))
+}
+
+function isPathVariable(path: string): boolean {
+  return path[0] === ':'
 }
 
 function isDynamicRoute(segment: string): boolean {
