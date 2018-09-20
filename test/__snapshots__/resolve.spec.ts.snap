@@ -6,6 +6,9 @@ Array [
     "component": "@/pages/meta.vue",
     "name": "meta",
     "path": "/meta",
+    "pathSegments": Array [
+      "meta",
+    ],
     "routeMeta": Object {
       "title": "Hello",
     },
@@ -22,6 +25,10 @@ Array [
         "component": "@/pages/users/test.vue",
         "name": "users-test",
         "path": "test",
+        "pathSegments": Array [
+          "users",
+          "test",
+        ],
         "specifier": "UsersTest",
       },
       Object {
@@ -30,18 +37,30 @@ Array [
             "component": "@/pages/users/_id/foo.vue",
             "name": "users-id-foo",
             "path": "foo",
+            "pathSegments": Array [
+              "users",
+              ":id",
+              "foo",
+            ],
             "specifier": "UsersIdFoo",
           },
         ],
         "component": "@/pages/users/_id.vue",
         "name": "users-id",
         "path": ":id",
+        "pathSegments": Array [
+          "users",
+          ":id",
+        ],
         "specifier": "UsersId",
       },
     ],
     "component": "@/pages/users.vue",
     "name": "users",
     "path": "/users",
+    "pathSegments": Array [
+      "users",
+    ],
     "specifier": "Users",
   },
 ]
@@ -53,6 +72,10 @@ Array [
     "component": "@/pages/users/_id.vue",
     "name": "users-id",
     "path": "/users/:id",
+    "pathSegments": Array [
+      "users",
+      ":id",
+    ],
     "specifier": "UsersId",
   },
 ]
@@ -66,18 +89,28 @@ Array [
         "component": "@/pages/foo/index.vue",
         "name": "foo-index",
         "path": "",
+        "pathSegments": Array [
+          "foo",
+        ],
         "specifier": "FooIndex",
       },
       Object {
         "component": "@/pages/foo/bar.vue",
         "name": "foo-bar",
         "path": "bar",
+        "pathSegments": Array [
+          "foo",
+          "bar",
+        ],
         "specifier": "FooBar",
       },
     ],
     "component": "@/pages/foo.vue",
     "name": "foo",
     "path": "/foo",
+    "pathSegments": Array [
+      "foo",
+    ],
     "specifier": "Foo",
   },
 ]
@@ -91,12 +124,19 @@ Array [
         "component": "@/pages/1test/2nested.vue",
         "name": "1test-2nested",
         "path": "2nested",
+        "pathSegments": Array [
+          "1test",
+          "2nested",
+        ],
         "specifier": "_1Test2Nested",
       },
     ],
     "component": "@/pages/1test.vue",
     "name": "1test",
     "path": "/1test",
+    "pathSegments": Array [
+      "1test",
+    ],
     "specifier": "_1Test",
   },
 ]
@@ -108,18 +148,25 @@ Array [
     "component": "@/pages/index.vue",
     "name": "index",
     "path": "/",
+    "pathSegments": Array [],
     "specifier": "Index",
   },
   Object {
     "component": "@/pages/foo.vue",
     "name": "foo",
     "path": "/foo",
+    "pathSegments": Array [
+      "foo",
+    ],
     "specifier": "Foo",
   },
   Object {
     "component": "@/pages/baz.vue",
     "name": "baz",
     "path": "/baz",
+    "pathSegments": Array [
+      "baz",
+    ],
     "specifier": "Baz",
   },
 ]
@@ -133,13 +180,188 @@ Array [
         "component": "@/pages/users/session/login.vue",
         "name": "users-session-login",
         "path": "session/login",
+        "pathSegments": Array [
+          "users",
+          "session",
+          "login",
+        ],
         "specifier": "UsersSessionLogin",
       },
     ],
     "component": "@/pages/users.vue",
     "name": "users",
     "path": "/users",
+    "pathSegments": Array [
+      "users",
+    ],
     "specifier": "Users",
+  },
+]
+`;
+
+exports[`Route resolution sorting handles when a dynamic route is a directory 1`] = `
+Array [
+  Object {
+    "component": "@/pages/nested/foo.vue",
+    "name": "nested-foo",
+    "path": "/nested/foo",
+    "pathSegments": Array [
+      "nested",
+      "foo",
+    ],
+    "specifier": "NestedFoo",
+  },
+  Object {
+    "component": "@/pages/nested/_id/foo.vue",
+    "name": "nested-id-foo",
+    "path": "/nested/:id/foo",
+    "pathSegments": Array [
+      "nested",
+      ":id",
+      "foo",
+    ],
+    "specifier": "NestedIdFoo",
+  },
+]
+`;
+
+exports[`Route resolution sorting handles when a static route is a directory 1`] = `
+Array [
+  Object {
+    "component": "@/pages/nested/foo/bar.vue",
+    "name": "nested-foo-bar",
+    "path": "/nested/foo/bar",
+    "pathSegments": Array [
+      "nested",
+      "foo",
+      "bar",
+    ],
+    "specifier": "NestedFooBar",
+  },
+  Object {
+    "component": "@/pages/nested/_id.vue",
+    "name": "nested-id",
+    "path": "/nested/:id",
+    "pathSegments": Array [
+      "nested",
+      ":id",
+    ],
+    "specifier": "NestedId",
+  },
+]
+`;
+
+exports[`Route resolution sorting handles when both static and dynamic routes are directories 1`] = `
+Array [
+  Object {
+    "component": "@/pages/nested/static/foo.vue",
+    "name": "nested-static-foo",
+    "path": "/nested/static/foo",
+    "pathSegments": Array [
+      "nested",
+      "static",
+      "foo",
+    ],
+    "specifier": "NestedStaticFoo",
+  },
+  Object {
+    "component": "@/pages/nested/_id/foo.vue",
+    "name": "nested-id-foo",
+    "path": "/nested/:id/foo",
+    "pathSegments": Array [
+      "nested",
+      ":id",
+      "foo",
+    ],
+    "specifier": "NestedIdFoo",
+  },
+]
+`;
+
+exports[`Route resolution sorting prioritizes deeper routes 1`] = `
+Array [
+  Object {
+    "component": "@/pages/nested/test/foo/bar.vue",
+    "name": "nested-test-foo-bar",
+    "path": "/nested/test/foo/bar",
+    "pathSegments": Array [
+      "nested",
+      "test",
+      "foo",
+      "bar",
+    ],
+    "specifier": "NestedTestFooBar",
+  },
+  Object {
+    "component": "@/pages/nested/test/foo/_id.vue",
+    "name": "nested-test-foo-id",
+    "path": "/nested/test/foo/:id",
+    "pathSegments": Array [
+      "nested",
+      "test",
+      "foo",
+      ":id",
+    ],
+    "specifier": "NestedTestFooId",
+  },
+  Object {
+    "component": "@/pages/nested/_id/foo/bar.vue",
+    "name": "nested-id-foo-bar",
+    "path": "/nested/:id/foo/bar",
+    "pathSegments": Array [
+      "nested",
+      ":id",
+      "foo",
+      "bar",
+    ],
+    "specifier": "NestedIdFooBar",
+  },
+  Object {
+    "component": "@/pages/nested/_id/_key/bar.vue",
+    "name": "nested-id-key-bar",
+    "path": "/nested/:id/:key/bar",
+    "pathSegments": Array [
+      "nested",
+      ":id",
+      ":key",
+      "bar",
+    ],
+    "specifier": "NestedIdKeyBar",
+  },
+]
+`;
+
+exports[`Route resolution sorting prioritizes static routes than dynamic ones 1`] = `
+Array [
+  Object {
+    "component": "@/pages/nested/foo.vue",
+    "name": "nested-foo",
+    "path": "/nested/foo",
+    "pathSegments": Array [
+      "nested",
+      "foo",
+    ],
+    "specifier": "NestedFoo",
+  },
+  Object {
+    "component": "@/pages/nested/bar.vue",
+    "name": "nested-bar",
+    "path": "/nested/bar",
+    "pathSegments": Array [
+      "nested",
+      "bar",
+    ],
+    "specifier": "NestedBar",
+  },
+  Object {
+    "component": "@/pages/nested/_id.vue",
+    "name": "nested-id",
+    "path": "/nested/:id",
+    "pathSegments": Array [
+      "nested",
+      ":id",
+    ],
+    "specifier": "NestedId",
   },
 ]
 `;

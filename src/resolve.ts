@@ -5,6 +5,7 @@ export interface PageMeta {
   name: string
   specifier: string
   path: string
+  pathSegments: string[]
   component: string
   children?: PageMeta[]
   routeMeta?: any
@@ -40,6 +41,7 @@ function pathMapToMeta(
       name: pathToName(path),
       specifier: pathToSpecifier(path),
       path: pathToRoute(path, parentDepth),
+      pathSegments: toActualPath(path),
       component: importPrefix + path.join('/')
     }
 
@@ -77,15 +79,19 @@ function pathMapToMeta(
     : []
 }
 
-function sortPathsFixedBeforeDynamic(a: string, b: string) {
-  const aIsVariable = isPathVariable(a)
-  const bIsVariable = isPathVariable(b)
+function routePathComparator(a: string[], b: string[]): number {
+  const a0 = a[0]
+  const b0 = b[0]
 
-  if (aIsVariable) {
-    return bIsVariable ? 0 : 1
+  if (!a0 || !b0) {
+    return 0
   }
 
-  return bIsVariable ? -1 : 0
+  const aOrder = isDynamicRoute(a0) ? 1 : 0
+  const bOrder = isDynamicRoute(b0) ? 1 : 0
+  const order = aOrder - bOrder
+
+  return order !== 0 ? order : routePathComparator(a.slice(1), b.slice(1))
 }
 
 function pathMapChildrenToMeta(
@@ -100,19 +106,37 @@ function pathMapChildrenToMeta(
         pathMapToMeta(value, importPrefix, readFile, parentDepth)
       )
     }, [])
-    .sort((a, b) => sortPathsFixedBeforeDynamic(a.path, b.path))
-}
-
-function isPathVariable(path: string): boolean {
-  return path[0] === ':'
+    .sort((a, b) => {
+      // Prioritize static routes than dynamic routes
+      return routePathComparator(a.pathSegments, b.pathSegments)
+    })
 }
 
 function isDynamicRoute(segment: string): boolean {
-  return segment[0] === '_'
+  return segment[0] === ':'
 }
 
 function isOmittable(segment: string): boolean {
   return segment === 'index.vue'
+}
+
+/**
+ * - Remove `.vue` from the last path
+ * - Omit if the last segument is `index`
+ * - Convert dynamic route to `:param` format
+ */
+function toActualPath(segments: string[]): string[] {
+  const last = segments[segments.length - 1]
+
+  if (isOmittable(last)) {
+    segments = segments.slice(0, -1)
+  } else {
+    segments = segments.slice(0, -1).concat(basename(last))
+  }
+
+  return segments.map(s => {
+    return s[0] === '_' ? ':' + s.slice(1) : s
+  })
 }
 
 function pathToMapPath(segments: string[]): string[] {
@@ -143,20 +167,13 @@ function pathToSpecifier(segments: string[]): string {
 }
 
 function pathToRoute(segments: string[], parentDepth: number): string {
-  const last = segments[segments.length - 1]
-
-  if (isOmittable(last)) {
-    segments = segments.slice(0, -1)
-  } else {
-    segments = segments.slice(0, -1).concat(basename(last))
-  }
-
-  const routeSegments = segments.slice(parentDepth).map(s => {
-    return isDynamicRoute(s) ? ':' + s.slice(1) : s
-  })
-
   const prefix = parentDepth > 0 ? '' : '/'
-  return prefix + routeSegments.join('/')
+  return (
+    prefix +
+    toActualPath(segments)
+      .slice(parentDepth)
+      .join('/')
+  )
 }
 
 function basename(filename: string): string {
