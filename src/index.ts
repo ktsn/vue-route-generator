@@ -15,7 +15,9 @@ export function generateRoutes({
   importPrefix = '@/pages/',
   dynamicImport = true
 }: GenerateConfig): string {
-  const pagePaths = fg.sync<string>('**/*.vue', {
+  const patterns = ['**/*.vue', '!**/__*__.vue', '!**/__*__/**']
+
+  const pagePaths = fg.sync<string>(patterns, {
     cwd: pages,
     onlyFiles: true
   })

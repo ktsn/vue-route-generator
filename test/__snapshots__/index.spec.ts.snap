@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Integration test 1`] = `
+"const Foo = () => import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
+const FooBar = () =>
+  import(/* webpackChunkName: \\"foo-bar\\" */ '@/pages/foo/bar.vue')
+const FooId = () =>
+  import(/* webpackChunkName: \\"foo-id\\" */ '@/pages/foo/_id.vue')
+const FooIndex = () =>
+  import(/* webpackChunkName: \\"foo-index\\" */ '@/pages/foo/index.vue')
+const Index = () => import(/* webpackChunkName: \\"index\\" */ '@/pages/index.vue')
+const Meta = () => import(/* webpackChunkName: \\"meta\\" */ '@/pages/meta.vue')
+const IdIndex = () =>
+  import(/* webpackChunkName: \\"id-index\\" */ '@/pages/_id/index.vue')
+const IdTest = () =>
+  import(/* webpackChunkName: \\"id-test\\" */ '@/pages/_id/test.vue')
+
+export default [
+  {
+    name: 'foo',
+    path: '/foo',
+    component: Foo,
+    children: [
+      {
+        name: 'foo-bar',
+        path: 'bar',
+        component: FooBar
+      },
+      {
+        name: 'foo-id',
+        path: ':id',
+        component: FooId
+      },
+      {
+        name: 'foo-index',
+        path: '',
+        component: FooIndex
+      }
+    ]
+  },
+  {
+    name: 'index',
+    path: '/',
+    component: Index
+  },
+  {
+    name: 'meta',
+    path: '/meta',
+    component: Meta,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    name: 'id-index',
+    path: '/:id',
+    component: IdIndex
+  },
+  {
+    name: 'id-test',
+    path: '/:id/test',
+    component: IdTest
+  }
+]
+"
+`;
