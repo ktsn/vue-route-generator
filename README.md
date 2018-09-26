@@ -86,6 +86,10 @@ export default new Router({
 
 The routing is inspired by [Nuxt routing](https://nuxtjs.org/guide/routing) and is implemented with the same functionality.
 
+### Partials
+
+Directories and files started and ended with `__` (two underscores, e.g. `__foo__.vue`) will be ignored. You can use them as partial components which will be used in some page components.
+
 ## Route Meta
 
 If the components have `<route-meta>` custom block, its json content is passed to generated route meta.
@@ -125,15 +129,15 @@ module.exports = [
 
 `GenerateConfig` has the following properties:
 
-* `pages`: Path to the directory that contains your page components.
-* `importPrefix`: A string that will be added to importing component path (default `@/pages/`).
-* `dynamicImport`: Use dynamic import expression (`import()`) to import component (default `true`).
+- `pages`: Path to the directory that contains your page components.
+- `importPrefix`: A string that will be added to importing component path (default `@/pages/`).
+- `dynamicImport`: Use dynamic import expression (`import()`) to import component (default `true`).
 
 ## Related Projects
 
-* [vue-cli-plugin-auto-routing](https://github.com/ktsn/vue-cli-plugin-auto-routing): Vue CLI plugin including auto pages and layouts resolution.
-* [vue-router-layout](https://github.com/ktsn/vue-router-layout): Lightweight layout resolver for Vue Router.
-* [vue-auto-routing](https://github.com/ktsn/vue-auto-routing): Generate Vue Router routing automatically.
+- [vue-cli-plugin-auto-routing](https://github.com/ktsn/vue-cli-plugin-auto-routing): Vue CLI plugin including auto pages and layouts resolution.
+- [vue-router-layout](https://github.com/ktsn/vue-router-layout): Lightweight layout resolver for Vue Router.
+- [vue-auto-routing](https://github.com/ktsn/vue-auto-routing): Generate Vue Router routing automatically.
 
 ## License
 
