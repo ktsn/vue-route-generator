@@ -8,12 +8,14 @@ describe('Route template', () => {
         name: 'foo',
         specifier: 'Foo',
         path: '/foo',
+        pathSegments: ['foo'],
         component: '@/pages/foo.vue'
       },
       {
         name: 'bar',
         specifier: 'Bar',
         path: '/bar',
+        pathSegments: ['bar'],
         component: '@/pages/bar.vue'
       }
     ]
@@ -27,18 +29,21 @@ describe('Route template', () => {
         name: 'foo',
         specifier: 'Foo',
         path: '/foo',
+        pathSegments: ['foo'],
         component: '@/pages/foo.vue',
         children: [
           {
             name: 'bar',
             specifier: 'FooBar',
             path: 'bar',
+            pathSegments: ['foo', 'bar'],
             component: '@/pages/bar.vue'
           },
           {
             name: 'baz',
             specifier: 'FooBaz',
             path: 'baz',
+            pathSegments: ['foo', 'baz'],
             component: '@/pages/baz.vue'
           }
         ]
@@ -54,12 +59,14 @@ describe('Route template', () => {
         name: 'foo',
         specifier: 'Foo',
         path: '/foo',
+        pathSegments: ['foo'],
         component: '@/pages/foo.vue'
       },
       {
         name: 'bar',
         specifier: 'Bar',
         path: '/bar',
+        pathSegments: ['bar'],
         component: '@/pages/bar.vue'
       }
     ]
@@ -73,6 +80,7 @@ describe('Route template', () => {
         name: 'foo',
         specifier: 'Foo',
         path: '/foo',
+        pathSegments: ['foo'],
         component: '@/pages/foo.vue',
         routeMeta: {
           title: 'Hello'
