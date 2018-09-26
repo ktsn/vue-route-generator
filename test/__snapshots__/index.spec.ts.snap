@@ -28,7 +28,7 @@ export default [
       },
       {
         name: 'foo-id',
-        path: ':id',
+        path: ':id?',
         component: FooId
       },
       {
