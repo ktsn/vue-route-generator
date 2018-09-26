@@ -117,7 +117,7 @@ function isDynamicRoute(segment: string): boolean {
 }
 
 function isOmittable(segment: string): boolean {
-  return segment === 'index.vue'
+  return segment === 'index'
 }
 
 /**
@@ -126,16 +126,22 @@ function isOmittable(segment: string): boolean {
  * - Convert dynamic route to `:param` format
  */
 function toActualPath(segments: string[]): string[] {
-  const last = segments[segments.length - 1]
+  const lastIndex = segments.length - 1
+  const last = basename(segments[lastIndex])
 
   if (isOmittable(last)) {
     segments = segments.slice(0, -1)
   } else {
-    segments = segments.slice(0, -1).concat(basename(last))
+    segments = segments.slice(0, -1).concat(last)
   }
 
-  return segments.map(s => {
-    return s[0] === '_' ? ':' + s.slice(1) : s
+  return segments.map((s, i) => {
+    if (s[0] === '_') {
+      const suffix = lastIndex === i ? '?' : ''
+      return ':' + s.slice(1) + suffix
+    } else {
+      return s
+    }
   })
 }
 
