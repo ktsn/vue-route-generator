@@ -47,10 +47,10 @@ Array [
         ],
         "component": "@/pages/users/_id.vue",
         "name": "users-id",
-        "path": ":id",
+        "path": ":id?",
         "pathSegments": Array [
           "users",
-          ":id",
+          ":id?",
         ],
         "specifier": "UsersId",
       },
@@ -71,12 +71,27 @@ Array [
   Object {
     "component": "@/pages/users/_id.vue",
     "name": "users-id",
+    "path": "/users/:id?",
+    "pathSegments": Array [
+      "users",
+      ":id?",
+    ],
+    "specifier": "UsersId",
+  },
+]
+`;
+
+exports[`Route resolution resolves dynamic routes with required param 1`] = `
+Array [
+  Object {
+    "component": "@/pages/users/_id/index.vue",
+    "name": "users-id-index",
     "path": "/users/:id",
     "pathSegments": Array [
       "users",
       ":id",
     ],
-    "specifier": "UsersId",
+    "specifier": "UsersIdIndex",
   },
 ]
 `;
@@ -241,10 +256,10 @@ Array [
   Object {
     "component": "@/pages/nested/_id.vue",
     "name": "nested-id",
-    "path": "/nested/:id",
+    "path": "/nested/:id?",
     "pathSegments": Array [
       "nested",
-      ":id",
+      ":id?",
     ],
     "specifier": "NestedId",
   },
@@ -295,12 +310,12 @@ Array [
   Object {
     "component": "@/pages/nested/test/foo/_id.vue",
     "name": "nested-test-foo-id",
-    "path": "/nested/test/foo/:id",
+    "path": "/nested/test/foo/:id?",
     "pathSegments": Array [
       "nested",
       "test",
       "foo",
-      ":id",
+      ":id?",
     ],
     "specifier": "NestedTestFooId",
   },
@@ -356,10 +371,10 @@ Array [
   Object {
     "component": "@/pages/nested/_id.vue",
     "name": "nested-id",
-    "path": "/nested/:id",
+    "path": "/nested/:id?",
     "pathSegments": Array [
       "nested",
-      ":id",
+      ":id?",
     ],
     "specifier": "NestedId",
   },
