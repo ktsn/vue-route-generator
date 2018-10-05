@@ -17,6 +17,27 @@ Array [
 ]
 `;
 
+exports[`Route resolution resolves as nested routes 1`] = `
+Array [
+  Object {
+    "component": "@/pages/index.vue",
+    "name": "index",
+    "path": "",
+    "pathSegments": Array [],
+    "specifier": "Index",
+  },
+  Object {
+    "component": "@/pages/foo.vue",
+    "name": "foo",
+    "path": "foo",
+    "pathSegments": Array [
+      "foo",
+    ],
+    "specifier": "Foo",
+  },
+]
+`;
+
 exports[`Route resolution resolves dynamic nested routes 1`] = `
 Array [
   Object {

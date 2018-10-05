@@ -8,12 +8,14 @@ export interface GenerateConfig {
   pages: string
   importPrefix?: string
   dynamicImport?: boolean
+  nested?: boolean
 }
 
 export function generateRoutes({
   pages,
   importPrefix = '@/pages/',
-  dynamicImport = true
+  dynamicImport = true,
+  nested = false
 }: GenerateConfig): string {
   const patterns = ['**/*.vue', '!**/__*__.vue', '!**/__*__/**']
 
@@ -22,7 +24,7 @@ export function generateRoutes({
     onlyFiles: true
   })
 
-  const metaList = resolveRoutePaths(pagePaths, importPrefix, file => {
+  const metaList = resolveRoutePaths(pagePaths, importPrefix, nested, file => {
     return fs.readFileSync(path.join(pages, file), 'utf8')
   })
 

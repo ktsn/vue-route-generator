@@ -21,10 +21,10 @@ function mockReadFile(path: string): string {
 }
 
 describe('Route resolution', () => {
-  function test(name: string, paths: string[]): void {
+  function test(name: string, paths: string[], nested: boolean = false): void {
     it(name, () => {
       expect(
-        resolveRoutePaths(paths, '@/pages/', mockReadFile)
+        resolveRoutePaths(paths, '@/pages/', nested, mockReadFile)
       ).toMatchSnapshot()
     })
   }
@@ -50,9 +50,11 @@ describe('Route resolution', () => {
 
   test('resolve route meta', ['meta.vue'])
 
+  test('resolves as nested routes', ['index.vue', 'foo.vue'], true)
+
   it('throws error when failed to parse route-meta', () => {
     expect(() => {
-      resolveRoutePaths(['invalid-meta.vue'], '@/pages/', mockReadFile)
+      resolveRoutePaths(['invalid-meta.vue'], '@/pages/', false, mockReadFile)
     }).toThrow(
       /Invalid json format of <route-meta> content in invalid-meta\.vue/
     )

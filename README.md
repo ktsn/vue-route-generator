@@ -132,6 +132,7 @@ module.exports = [
 - `pages`: Path to the directory that contains your page components.
 - `importPrefix`: A string that will be added to importing component path (default `@/pages/`).
 - `dynamicImport`: Use dynamic import expression (`import()`) to import component (default `true`).
+- `nested`: If `true`, generated route path will be always treated as nested. (e.g. will generate `path: 'foo'` rather than `path: '/foo'`)
 
 ## Related Projects
 
