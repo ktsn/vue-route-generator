@@ -16,6 +16,7 @@ const routeMetaName = 'route-meta'
 export function resolveRoutePaths(
   paths: string[],
   importPrefix: string,
+  nested: boolean,
   readFile: (path: string) => string
 ): PageMeta[] {
   const map: NestedMap<string[]> = {}
@@ -25,12 +26,13 @@ export function resolveRoutePaths(
     setToMap(map, pathToMapPath(path), path)
   })
 
-  return pathMapToMeta(map, importPrefix, readFile)
+  return pathMapToMeta(map, importPrefix, nested, readFile)
 }
 
 function pathMapToMeta(
   map: NestedMap<string[]>,
   importPrefix: string,
+  nested: boolean,
   readFile: (path: string) => string,
   parentDepth: number = 0
 ): PageMeta[] {
@@ -40,7 +42,7 @@ function pathMapToMeta(
     const meta: PageMeta = {
       name: pathToName(path),
       specifier: pathToSpecifier(path),
-      path: pathToRoute(path, parentDepth),
+      path: pathToRoute(path, parentDepth, nested),
       pathSegments: toActualPath(path),
       component: importPrefix + path.join('/')
     }
@@ -66,6 +68,7 @@ function pathMapToMeta(
       meta.children = pathMapChildrenToMeta(
         map.children,
         importPrefix,
+        nested,
         readFile,
         path.length
       )
@@ -75,7 +78,13 @@ function pathMapToMeta(
   }
 
   return map.children
-    ? pathMapChildrenToMeta(map.children, importPrefix, readFile, parentDepth)
+    ? pathMapChildrenToMeta(
+        map.children,
+        importPrefix,
+        nested,
+        readFile,
+        parentDepth
+      )
     : []
 }
 
@@ -97,13 +106,14 @@ function routePathComparator(a: string[], b: string[]): number {
 function pathMapChildrenToMeta(
   children: Map<string, NestedMap<string[]>>,
   importPrefix: string,
+  nested: boolean,
   readFile: (path: string) => string,
   parentDepth: number
 ): PageMeta[] {
   return Array.from(children.values())
     .reduce<PageMeta[]>((acc, value) => {
       return acc.concat(
-        pathMapToMeta(value, importPrefix, readFile, parentDepth)
+        pathMapToMeta(value, importPrefix, nested, readFile, parentDepth)
       )
     }, [])
     .sort((a, b) => {
@@ -172,8 +182,12 @@ function pathToSpecifier(segments: string[]): string {
   return /^\d/.test(replaced) ? '_' + replaced : replaced
 }
 
-function pathToRoute(segments: string[], parentDepth: number): string {
-  const prefix = parentDepth > 0 ? '' : '/'
+function pathToRoute(
+  segments: string[],
+  parentDepth: number,
+  nested: boolean
+): string {
+  const prefix = nested || parentDepth > 0 ? '' : '/'
   return (
     prefix +
     toActualPath(segments)
