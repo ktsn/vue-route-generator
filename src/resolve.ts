@@ -93,7 +93,7 @@ function routePathComparator(a: string[], b: string[]): number {
   const b0 = b[0]
 
   if (!a0 || !b0) {
-    return 0
+    return a.length - b.length
   }
 
   const aOrder = isDynamicRoute(a0) ? 1 : 0

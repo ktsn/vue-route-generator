@@ -1,5 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Route resolution prioritizes index than dynamic route 1`] = `
+Array [
+  Object {
+    "component": "@/pages/users/index.vue",
+    "name": "users-index",
+    "path": "/users",
+    "pathSegments": Array [
+      "users",
+    ],
+    "specifier": "UsersIndex",
+  },
+  Object {
+    "component": "@/pages/users/foo.vue",
+    "name": "users-foo",
+    "path": "/users/foo",
+    "pathSegments": Array [
+      "users",
+      "foo",
+    ],
+    "specifier": "UsersFoo",
+  },
+  Object {
+    "component": "@/pages/users/_id.vue",
+    "name": "users-id",
+    "path": "/users/:id?",
+    "pathSegments": Array [
+      "users",
+      ":id?",
+    ],
+    "specifier": "UsersId",
+  },
+]
+`;
+
 exports[`Route resolution resolve route meta 1`] = `
 Array [
   Object {

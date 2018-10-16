@@ -52,6 +52,12 @@ describe('Route resolution', () => {
 
   test('resolves as nested routes', ['index.vue', 'foo.vue'], true)
 
+  test('prioritizes index than dynamic route', [
+    'users/_id.vue',
+    'users/foo.vue',
+    'users/index.vue'
+  ])
+
   it('throws error when failed to parse route-meta', () => {
     expect(() => {
       resolveRoutePaths(['invalid-meta.vue'], '@/pages/', false, mockReadFile)
