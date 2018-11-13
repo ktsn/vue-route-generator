@@ -90,4 +90,27 @@ describe('Route template', () => {
 
     expect(createRoutes(meta, false)).toMatchSnapshot()
   })
+
+  it('should not include name if the route has a default child', () => {
+    const meta: PageMeta[] = [
+      {
+        name: 'foo',
+        specifier: 'Foo',
+        path: '/foo',
+        pathSegments: ['foo'],
+        component: '@/pages/foo.vue',
+        children: [
+          {
+            name: 'foo-index',
+            specifier: 'FooIndex',
+            path: '',
+            pathSegments: ['foo'],
+            component: '@/pages/foo/index.vue'
+          }
+        ]
+      }
+    ]
+
+    expect(createRoutes(meta, true)).toMatchSnapshot()
+  })
 })

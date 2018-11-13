@@ -22,7 +22,6 @@ export default [
     component: Index
   },
   {
-    name: 'foo',
     path: '/foo',
     component: Foo,
     children: [
