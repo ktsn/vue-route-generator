@@ -80,3 +80,24 @@ export default [
 ]
 "
 `;
+
+exports[`Route template should not include name if the route has a default child 1`] = `
+"const Foo = () => import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
+const FooIndex = () =>
+  import(/* webpackChunkName: \\"foo-index\\" */ '@/pages/foo/index.vue')
+
+export default [
+  {
+    path: '/foo',
+    component: Foo,
+    children: [
+      {
+        name: 'foo-index',
+        path: '',
+        component: FooIndex
+      }
+    ]
+  }
+]
+"
+`;

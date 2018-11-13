@@ -2,20 +2,25 @@ import * as prettier from 'prettier'
 import { PageMeta } from '../resolve'
 
 function createChildrenRoute(children: PageMeta[]): string {
-  return `,
-    children: [${children.map(createRoute).join(',')}]`
+  return `,children: [${children.map(createRoute).join(',')}]`
 }
 
 function createRoute(meta: PageMeta): string {
   const children = !meta.children ? '' : createChildrenRoute(meta.children)
 
+  // If default child is exists, the route should not have a name.
+  const routeName =
+    meta.children && meta.children.some(m => m.path === '')
+      ? ''
+      : `name: '${meta.name}',`
+
   const routeMeta = !meta.routeMeta
     ? ''
-    : ',\nmeta: ' + JSON.stringify(meta.routeMeta, null, 2)
+    : ',meta: ' + JSON.stringify(meta.routeMeta, null, 2)
 
   return `
   {
-    name: '${meta.name}',
+    ${routeName}
     path: '${meta.path}',
     component: ${meta.specifier}${routeMeta}${children}
   }`
