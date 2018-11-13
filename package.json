@@ -48,21 +48,21 @@
     }
   },
   "devDependencies": {
-    "@types/jest": "^23.3.2",
-    "@types/node": "^10.10.1",
+    "@types/jest": "^23.3.9",
+    "@types/node": "^10.12.6",
     "@types/prettier": "^1.13.2",
     "jest": "^23.6.0",
-    "ts-jest": "^23.1.4",
+    "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
     "tslint-config-ktsn": "^2.1.0",
-    "tslint-config-prettier": "^1.15.0",
-    "typescript": "^3.0.3",
+    "tslint-config-prettier": "^1.16.0",
+    "typescript": "^3.1.6",
     "vue": "^2.5.17",
     "vue-template-compiler": "^2.5.17"
   },
   "dependencies": {
-    "fast-glob": "^2.2.2",
-    "prettier": "1.14.3"
+    "fast-glob": "^2.2.4",
+    "prettier": "1.15.2"
   },
   "peerDependencies": {
     "vue-template-compiler": "^2.0.0"

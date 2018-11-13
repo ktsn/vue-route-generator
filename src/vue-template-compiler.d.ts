@@ -1,8 +1,8 @@
 declare module 'vue-template-compiler' {
   import Vue, { VNode } from 'vue'
   /*
- * Template compilation options / results
- */
+   * Template compilation options / results
+   */
   interface CompilerOptions {
     modules?: ModuleOptions[]
     directives?: Record<string, DirectiveFunction>
@@ -32,8 +32,8 @@ declare module 'vue-template-compiler' {
     directiveMeta: ASTDirective
   ) => void
   /*
- * AST Types
- */
+   * AST Types
+   */
   /**
    * - 0: FALSE - whole sub tree un-optimizable
    * - 1: FULL - whole sub tree optimizable
@@ -146,8 +146,8 @@ declare module 'vue-template-compiler' {
     ssrOptimizability?: SSROptimizability
   }
   /*
- * SFC parser related types
- */
+   * SFC parser related types
+   */
   interface SFCParserOptions {
     pad?: true | 'line' | 'space'
   }
@@ -169,8 +169,8 @@ declare module 'vue-template-compiler' {
     customBlocks: SFCBlock[]
   }
   /*
- * Exposed functions
- */
+   * Exposed functions
+   */
   export function compile(
     template: string,
     options?: CompilerOptions
