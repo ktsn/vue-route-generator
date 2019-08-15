@@ -20,7 +20,7 @@ describe('Route template', () => {
       }
     ]
 
-    expect(createRoutes(meta, true)).toMatchSnapshot()
+    expect(createRoutes(meta, true, '')).toMatchSnapshot()
   })
 
   it('should generate nested routes', () => {
@@ -50,7 +50,7 @@ describe('Route template', () => {
       }
     ]
 
-    expect(createRoutes(meta, true)).toMatchSnapshot()
+    expect(createRoutes(meta, true, '')).toMatchSnapshot()
   })
 
   it('should generate static import code', () => {
@@ -71,7 +71,7 @@ describe('Route template', () => {
       }
     ]
 
-    expect(createRoutes(meta, false)).toMatchSnapshot()
+    expect(createRoutes(meta, false, '')).toMatchSnapshot()
   })
 
   it('should generate route meta', () => {
@@ -88,7 +88,28 @@ describe('Route template', () => {
       }
     ]
 
-    expect(createRoutes(meta, false)).toMatchSnapshot()
+    expect(createRoutes(meta, false, '')).toMatchSnapshot()
+  })
+
+  it('should configure chunk name prefix', () => {
+    const meta: PageMeta[] = [
+      {
+        name: 'foo',
+        specifier: 'Foo',
+        path: '/foo',
+        pathSegments: ['foo'],
+        component: '@/pages/foo.vue'
+      },
+      {
+        name: 'bar',
+        specifier: 'Bar',
+        path: '/bar',
+        pathSegments: ['bar'],
+        component: '@/pages/bar.vue'
+      }
+    ]
+
+    expect(createRoutes(meta, true, 'page-')).toMatchSnapshot()
   })
 
   it('should not include name if the route has a default child', () => {
@@ -111,6 +132,6 @@ describe('Route template', () => {
       }
     ]
 
-    expect(createRoutes(meta, true)).toMatchSnapshot()
+    expect(createRoutes(meta, true, '')).toMatchSnapshot()
   })
 })

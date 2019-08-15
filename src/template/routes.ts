@@ -26,20 +26,34 @@ function createRoute(meta: PageMeta): string {
   }`
 }
 
-function createImport(meta: PageMeta, dynamic: boolean): string {
+function createImport(
+  meta: PageMeta,
+  dynamic: boolean,
+  chunkNamePrefix: string
+): string {
   const code = dynamic
-    ? `function ${meta.specifier}() { return import(/* webpackChunkName: "${meta.name}" */ '${meta.component}') }`
+    ? `function ${meta.specifier}() { return import(/* webpackChunkName: "${chunkNamePrefix}${meta.name}" */ '${meta.component}') }`
     : `import ${meta.specifier} from '${meta.component}'`
 
   return meta.children
     ? [code]
-        .concat(meta.children.map(child => createImport(child, dynamic)))
+        .concat(
+          meta.children.map(child =>
+            createImport(child, dynamic, chunkNamePrefix)
+          )
+        )
         .join('\n')
     : code
 }
 
-export function createRoutes(meta: PageMeta[], dynamic: boolean): string {
-  const imports = meta.map(m => createImport(m, dynamic)).join('\n')
+export function createRoutes(
+  meta: PageMeta[],
+  dynamic: boolean,
+  chunkNamePrefix: string
+): string {
+  const imports = meta
+    .map(m => createImport(m, dynamic, chunkNamePrefix))
+    .join('\n')
   const code = meta.map(createRoute).join(',')
   return prettier.format(`${imports}\n\nexport default [${code}]`, {
     parser: 'babel',
