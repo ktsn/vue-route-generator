@@ -19,7 +19,7 @@ export function generateRoutes({
 }: GenerateConfig): string {
   const patterns = ['**/*.vue', '!**/__*__.vue', '!**/__*__/**']
 
-  const pagePaths = fg.sync<string>(patterns, {
+  const pagePaths = fg.sync(patterns, {
     cwd: pages,
     onlyFiles: true
   })

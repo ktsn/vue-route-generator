@@ -28,9 +28,7 @@ function createRoute(meta: PageMeta): string {
 
 function createImport(meta: PageMeta, dynamic: boolean): string {
   const code = dynamic
-    ? `function ${meta.specifier}() { return import(/* webpackChunkName: "${
-        meta.name
-      }" */ '${meta.component}') }`
+    ? `function ${meta.specifier}() { return import(/* webpackChunkName: "${meta.name}" */ '${meta.component}') }`
     : `import ${meta.specifier} from '${meta.component}'`
 
   return meta.children
@@ -44,7 +42,7 @@ export function createRoutes(meta: PageMeta[], dynamic: boolean): string {
   const imports = meta.map(m => createImport(m, dynamic)).join('\n')
   const code = meta.map(createRoute).join(',')
   return prettier.format(`${imports}\n\nexport default [${code}]`, {
-    parser: 'babylon',
+    parser: 'babel',
     semi: false,
     singleQuote: true
   })

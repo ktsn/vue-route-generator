@@ -43,26 +43,26 @@
     ],
     "globals": {
       "ts-jest": {
-        "tsConfigFile": "test/tsconfig.json"
+        "tsConfig": "test/tsconfig.json"
       }
     }
   },
   "devDependencies": {
-    "@types/jest": "^23.3.9",
-    "@types/node": "^10.12.6",
-    "@types/prettier": "^1.13.2",
-    "jest": "^23.6.0",
-    "ts-jest": "^23.10.4",
-    "tslint": "^5.11.0",
+    "@types/jest": "^24.0.17",
+    "@types/node": "^12.7.2",
+    "@types/prettier": "^1.18.2",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.18.0",
     "tslint-config-ktsn": "^2.1.0",
-    "tslint-config-prettier": "^1.16.0",
-    "typescript": "^3.1.6",
-    "vue": "^2.5.17",
-    "vue-template-compiler": "^2.5.17"
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.3",
+    "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10"
   },
   "dependencies": {
-    "fast-glob": "^2.2.4",
-    "prettier": "1.15.2"
+    "fast-glob": "^3.0.4",
+    "prettier": "1.18.2"
   },
   "peerDependencies": {
     "vue-template-compiler": "^2.0.0"
