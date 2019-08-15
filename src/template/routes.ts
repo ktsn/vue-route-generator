@@ -28,9 +28,9 @@ function createRoute(meta: PageMeta): string {
 
 function createImport(meta: PageMeta, dynamic: boolean): string {
   const code = dynamic
-    ? `const ${meta.specifier} = () => import(/* webpackChunkName: "${
+    ? `function ${meta.specifier}() { return import(/* webpackChunkName: "${
         meta.name
-      }" */ '${meta.component}')`
+      }" */ '${meta.component}') }`
     : `import ${meta.specifier} from '${meta.component}'`
 
   return meta.children
