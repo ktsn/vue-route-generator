@@ -8,6 +8,7 @@ export interface GenerateConfig {
   pages: string
   importPrefix?: string
   dynamicImport?: boolean
+  chunkNamePrefix?: string
   nested?: boolean
 }
 
@@ -15,6 +16,7 @@ export function generateRoutes({
   pages,
   importPrefix = '@/pages/',
   dynamicImport = true,
+  chunkNamePrefix = '',
   nested = false
 }: GenerateConfig): string {
   const patterns = ['**/*.vue', '!**/__*__.vue', '!**/__*__/**']
@@ -28,5 +30,5 @@ export function generateRoutes({
     return fs.readFileSync(path.join(pages, file), 'utf8')
   })
 
-  return createRoutes(metaList, dynamicImport)
+  return createRoutes(metaList, dynamicImport, chunkNamePrefix)
 }
