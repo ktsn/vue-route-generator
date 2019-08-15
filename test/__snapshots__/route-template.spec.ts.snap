@@ -1,9 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Route template should generate nested routes 1`] = `
-"const Foo = () => import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
-const FooBar = () => import(/* webpackChunkName: \\"bar\\" */ '@/pages/bar.vue')
-const FooBaz = () => import(/* webpackChunkName: \\"baz\\" */ '@/pages/baz.vue')
+"function Foo() {
+  return import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
+}
+function FooBar() {
+  return import(/* webpackChunkName: \\"bar\\" */ '@/pages/bar.vue')
+}
+function FooBaz() {
+  return import(/* webpackChunkName: \\"baz\\" */ '@/pages/baz.vue')
+}
 
 export default [
   {
@@ -44,8 +50,12 @@ export default [
 `;
 
 exports[`Route template should generate routes 1`] = `
-"const Foo = () => import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
-const Bar = () => import(/* webpackChunkName: \\"bar\\" */ '@/pages/bar.vue')
+"function Foo() {
+  return import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
+}
+function Bar() {
+  return import(/* webpackChunkName: \\"bar\\" */ '@/pages/bar.vue')
+}
 
 export default [
   {
@@ -82,9 +92,12 @@ export default [
 `;
 
 exports[`Route template should not include name if the route has a default child 1`] = `
-"const Foo = () => import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
-const FooIndex = () =>
-  import(/* webpackChunkName: \\"foo-index\\" */ '@/pages/foo/index.vue')
+"function Foo() {
+  return import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
+}
+function FooIndex() {
+  return import(/* webpackChunkName: \\"foo-index\\" */ '@/pages/foo/index.vue')
+}
 
 export default [
   {

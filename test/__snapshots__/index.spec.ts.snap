@@ -1,19 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Integration test 1`] = `
-"const Index = () => import(/* webpackChunkName: \\"index\\" */ '@/pages/index.vue')
-const Foo = () => import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
-const FooIndex = () =>
-  import(/* webpackChunkName: \\"foo-index\\" */ '@/pages/foo/index.vue')
-const FooBar = () =>
-  import(/* webpackChunkName: \\"foo-bar\\" */ '@/pages/foo/bar.vue')
-const FooId = () =>
-  import(/* webpackChunkName: \\"foo-id\\" */ '@/pages/foo/_id.vue')
-const Meta = () => import(/* webpackChunkName: \\"meta\\" */ '@/pages/meta.vue')
-const IdIndex = () =>
-  import(/* webpackChunkName: \\"id-index\\" */ '@/pages/_id/index.vue')
-const IdTest = () =>
-  import(/* webpackChunkName: \\"id-test\\" */ '@/pages/_id/test.vue')
+"function Index() {
+  return import(/* webpackChunkName: \\"index\\" */ '@/pages/index.vue')
+}
+function Foo() {
+  return import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
+}
+function FooIndex() {
+  return import(/* webpackChunkName: \\"foo-index\\" */ '@/pages/foo/index.vue')
+}
+function FooBar() {
+  return import(/* webpackChunkName: \\"foo-bar\\" */ '@/pages/foo/bar.vue')
+}
+function FooId() {
+  return import(/* webpackChunkName: \\"foo-id\\" */ '@/pages/foo/_id.vue')
+}
+function Meta() {
+  return import(/* webpackChunkName: \\"meta\\" */ '@/pages/meta.vue')
+}
+function IdIndex() {
+  return import(/* webpackChunkName: \\"id-index\\" */ '@/pages/_id/index.vue')
+}
+function IdTest() {
+  return import(/* webpackChunkName: \\"id-test\\" */ '@/pages/_id/test.vue')
+}
 
 export default [
   {
