@@ -19,6 +19,11 @@ function FooId() {
 function Meta() {
   return import(/* webpackChunkName: \\"meta\\" */ '@/pages/meta.vue')
 }
+function UserRegister() {
+  return import(
+    /* webpackChunkName: \\"user.register\\" */ '@/pages/user.register.vue'
+  )
+}
 function IdIndex() {
   return import(/* webpackChunkName: \\"id-index\\" */ '@/pages/_id/index.vue')
 }
@@ -60,6 +65,11 @@ export default [
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    name: 'user.register',
+    path: '/user.register',
+    component: UserRegister
   },
   {
     name: 'id-index',
