@@ -197,5 +197,5 @@ function pathToRoute(
 }
 
 function basename(filename: string): string {
-  return filename.replace(/\..+?$/, '')
+  return filename.replace(/\.[^.]+$/g, '')
 }
