@@ -136,6 +136,20 @@ Array [
 ]
 `;
 
+exports[`Route resolution resolves dynamic routes with multiple "." 1`] = `
+Array [
+  Object {
+    "component": "@/pages/user.register.vue",
+    "name": "user.register",
+    "path": "/user.register",
+    "pathSegments": Array [
+      "user.register",
+    ],
+    "specifier": "UserRegister",
+  },
+]
+`;
+
 exports[`Route resolution resolves dynamic routes with required param 1`] = `
 Array [
   Object {

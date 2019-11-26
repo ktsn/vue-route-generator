@@ -33,6 +33,8 @@ describe('Route resolution', () => {
 
   test('resolves dynamic routes', ['users/_id.vue'])
 
+  test('resolves dynamic routes with multiple "."', ['user.register.vue'])
+
   test('resolves dynamic routes with required param', ['users/_id/index.vue'])
 
   test('resolves nested routes', ['foo.vue', 'foo/index.vue', 'foo/bar.vue'])
