@@ -11,6 +11,10 @@ export interface PageMeta {
   routeMeta?: any
 }
 
+interface FileError extends Error {
+  file?: string
+}
+
 const routeMetaName = 'route-meta'
 
 export function resolveRoutePaths(
@@ -48,7 +52,9 @@ function pathMapToMeta(
     }
 
     const content = readFile(path.join('/'))
-    const parsed = parseComponent(content)
+    const parsed = parseComponent(content, {
+      pad: 'space'
+    })
     const routeMetaBlock = parsed.customBlocks.find(
       b => b.type === routeMetaName
     )
@@ -57,10 +63,17 @@ function pathMapToMeta(
       try {
         meta.routeMeta = JSON.parse(routeMetaBlock.content)
       } catch (err) {
-        throw new Error(
-          `Invalid json format of <route-meta> content in ${path.join('/')}\n` +
+        const joinedPath = path.join('/')
+        const wrapped: FileError = new Error(
+          `Invalid json format of <route-meta> content in ${joinedPath}\n` +
             err.message
         )
+
+        // Store file path to provide useful information to downstream tools
+        // like friendly-errors-webpack-plugin
+        wrapped.file = joinedPath
+
+        throw wrapped
       }
     }
 
