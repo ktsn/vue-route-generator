@@ -48,7 +48,7 @@
     }
   },
   "devDependencies": {
-    "@types/jest": "^24.0.17",
+    "@types/jest": "^25.1.0",
     "@types/node": "^13.1.0",
     "@types/prettier": "^1.18.2",
     "jest": "^25.1.0",
