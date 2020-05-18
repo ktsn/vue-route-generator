@@ -10,6 +10,7 @@ export interface GenerateConfig {
   dynamicImport?: boolean
   chunkNamePrefix?: string
   nested?: boolean
+  routeName?: string
 }
 
 export function generateRoutes({
@@ -17,7 +18,8 @@ export function generateRoutes({
   importPrefix = '@/pages/',
   dynamicImport = true,
   chunkNamePrefix = '',
-  nested = false
+  nested = false,
+  routeName = 'dash'
 }: GenerateConfig): string {
   const patterns = ['**/*.vue', '!**/__*__.vue', '!**/__*__/**']
 
