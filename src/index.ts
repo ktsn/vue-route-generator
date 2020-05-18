@@ -28,7 +28,7 @@ export function generateRoutes({
     onlyFiles: true
   })
 
-  const metaList = resolveRoutePaths(pagePaths, importPrefix, nested, file => {
+  const metaList = resolveRoutePaths(pagePaths, importPrefix, nested, routeName, file => {
     return fs.readFileSync(path.join(pages, file), 'utf8')
   })
 
