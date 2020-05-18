@@ -54,6 +54,42 @@ export default [
 ]
 ```
 
+Custom routeName
+```js
+const { generateRoutes } = require('vue-route-generator')
+
+const code = generateRoutes({
+  pages: './pages', // Vue page component directory
+  routeName: 'dash' // pascal or name 
+})
+
+console.log(code)
+```
+
+vue-route-generator will generate like the following code (beautified the indentations etc.):
+
+```js
+export default [
+  {
+    name: 'index',
+    path: '/',
+    component: () => import('@/pages/index.vue')
+  },
+  {
+    name: 'users',
+    path: '/users',
+    component: () => import('@/pages/users.vue'),
+    children: [
+      {
+        name: 'users-id',  // usersId routeName == pascal or component.name routeName == name, 
+        path: ':id',
+        component: () => import('@/pages/users/_id.vue')
+      }
+    ]
+  }
+]
+```
+
 You can save the code and include router instance:
 
 ```js
