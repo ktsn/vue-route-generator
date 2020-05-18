@@ -21,6 +21,7 @@ export function resolveRoutePaths(
   paths: string[],
   importPrefix: string,
   nested: boolean,
+  routeName: string,
   readFile: (path: string) => string
 ): PageMeta[] {
   const map: NestedMap<string[]> = {}
@@ -30,13 +31,14 @@ export function resolveRoutePaths(
     setToMap(map, pathToMapPath(path), path)
   })
 
-  return pathMapToMeta(map, importPrefix, nested, readFile)
+  return pathMapToMeta(map, importPrefix, nested, routeName, readFile)
 }
 
 function pathMapToMeta(
   map: NestedMap<string[]>,
   importPrefix: string,
   nested: boolean,
+  routeName: string,
   readFile: (path: string) => string,
   parentDepth: number = 0
 ): PageMeta[] {
@@ -50,7 +52,11 @@ function pathMapToMeta(
       pathSegments: toActualPath(path),
       component: importPrefix + path.join('/')
     }
-
+    if (routeName == 'pascal') {
+      meta.name = meta.specifier
+    } else if (routeName == 'name' && /default {(\s+)name: '(\S+)'/.test(parsed.script.content)) {
+      meta.name = RegExp.$2
+    }
     const content = readFile(path.join('/'))
     const parsed = parseComponent(content, {
       pad: 'space'
