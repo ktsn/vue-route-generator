@@ -90,18 +90,21 @@ The routing is inspired by [Nuxt routing](https://nuxtjs.org/guide/routing) and 
 
 Directories and files started and ended with `__` (two underscores, e.g. `__foo__.vue`) will be ignored. You can use them as partial components which will be used in some page components.
 
-## Route Meta
+## Route Custom Block
 
-If the components have `<route-meta>` custom block, its json content is passed to generated route meta.
+If the components have `<route>` custom block, its json content will be merged into the generated route record.
 
-For example, if `index.vue` has the following `<route-meta>` block:
+For example, if `index.vue` has the following `<route>` block:
 
 ```vue
-<route-meta>
+<route>
 {
-  "requiresAuth": true
+  "name": "home",
+  "meta": {
+    "requiresAuth": true
+  }
 }
-</route-meta>
+</route>
 
 <template>
   <h1>Hello</h1>
@@ -113,9 +116,11 @@ The generated route config is like following:
 ```js
 module.exports = [
   {
-    name: 'index',
+    name: 'home', // Overwritten by <route> block's name field.
     path: '/',
     component: () => import('@/pages/index.vue'),
+
+    // Added by <route> block's meta field.
     meta: {
       requiresAuth: true
     }
