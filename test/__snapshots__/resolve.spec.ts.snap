@@ -185,6 +185,61 @@ Array [
 ]
 `;
 
+exports[`Route resolution resolves nested route including index 1`] = `
+Array [
+  Object {
+    "component": "@/pages/a/index/b/index/c.vue",
+    "name": "a-index-b-index-c",
+    "path": "/a/b/c",
+    "pathSegments": Array [
+      "a",
+      "b",
+      "c",
+    ],
+    "specifier": "AIndexBIndexC",
+  },
+]
+`;
+
+exports[`Route resolution resolves nested route including index with corresponding index.vue 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "component": "@/pages/a/index/b/index/c.vue",
+            "name": "a-index-b-index-c",
+            "path": "c",
+            "pathSegments": Array [
+              "a",
+              "b",
+              "c",
+            ],
+            "specifier": "AIndexBIndexC",
+          },
+        ],
+        "component": "@/pages/a/index/b/index.vue",
+        "name": "a-index-b-index",
+        "path": "b",
+        "pathSegments": Array [
+          "a",
+          "b",
+        ],
+        "specifier": "AIndexBIndex",
+      },
+    ],
+    "component": "@/pages/a/index.vue",
+    "name": "a-index",
+    "path": "/a",
+    "pathSegments": Array [
+      "a",
+    ],
+    "specifier": "AIndex",
+  },
+]
+`;
+
 exports[`Route resolution resolves nested routes 1`] = `
 Array [
   Object {

@@ -65,6 +65,14 @@ describe('Route resolution', () => {
 
   test('resolves routes', ['index.vue', 'foo.vue', 'baz.vue'])
 
+  test('resolves nested route including index', ['a/index/b/index/c.vue'])
+
+  test('resolves nested route including index with corresponding index.vue', [
+    'a/index.vue',
+    'a/index/b/index.vue',
+    'a/index/b/index/c.vue',
+  ])
+
   test('resolves dynamic routes', ['users/_id.vue'])
 
   test('resolves dynamic routes with multiple "."', ['user.register.vue'])
