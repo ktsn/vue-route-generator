@@ -10,7 +10,7 @@ function createRoute(meta: PageMeta): string {
 
   // If default child is exists, the route should not have a name.
   const routeName =
-    meta.children && meta.children.some(m => m.path === '')
+    meta.children && meta.children.some((m) => m.path === '')
       ? ''
       : `name: '${meta.name}',`
 
@@ -38,7 +38,7 @@ function createImport(
   return meta.children
     ? [code]
         .concat(
-          meta.children.map(child =>
+          meta.children.map((child) =>
             createImport(child, dynamic, chunkNamePrefix)
           )
         )
@@ -52,12 +52,12 @@ export function createRoutes(
   chunkNamePrefix: string
 ): string {
   const imports = meta
-    .map(m => createImport(m, dynamic, chunkNamePrefix))
+    .map((m) => createImport(m, dynamic, chunkNamePrefix))
     .join('\n')
   const code = meta.map(createRoute).join(',')
   return prettier.format(`${imports}\n\nexport default [${code}]`, {
     parser: 'babel',
     semi: false,
-    singleQuote: true
+    singleQuote: true,
   })
 }

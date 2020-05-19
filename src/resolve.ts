@@ -25,8 +25,8 @@ export function resolveRoutePaths(
 ): PageMeta[] {
   const map: NestedMap<string[]> = {}
 
-  const splitted = paths.map(p => p.split('/'))
-  splitted.forEach(path => {
+  const splitted = paths.map((p) => p.split('/'))
+  splitted.forEach((path) => {
     setToMap(map, pathToMapPath(path), path)
   })
 
@@ -48,15 +48,15 @@ function pathMapToMeta(
       specifier: pathToSpecifier(path),
       path: pathToRoute(path, parentDepth, nested),
       pathSegments: toActualPath(path),
-      component: importPrefix + path.join('/')
+      component: importPrefix + path.join('/'),
     }
 
     const content = readFile(path.join('/'))
     const parsed = parseComponent(content, {
-      pad: 'space'
+      pad: 'space',
     })
     const routeMetaBlock = parsed.customBlocks.find(
-      b => b.type === routeMetaName
+      (b) => b.type === routeMetaName
     )
 
     if (routeMetaBlock) {
@@ -178,7 +178,7 @@ function pathToName(segments: string[]): string {
   segments = segments.slice(0, -1).concat(basename(last))
 
   return segments
-    .map(s => {
+    .map((s) => {
       return s[0] === '_' ? s.slice(1) : s
     })
     .join('-')
@@ -201,12 +201,7 @@ function pathToRoute(
   nested: boolean
 ): string {
   const prefix = nested || parentDepth > 0 ? '' : '/'
-  return (
-    prefix +
-    toActualPath(segments)
-      .slice(parentDepth)
-      .join('/')
-  )
+  return prefix + toActualPath(segments).slice(parentDepth).join('/')
 }
 
 function basename(filename: string): string {

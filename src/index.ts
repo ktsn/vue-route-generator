@@ -17,18 +17,23 @@ export function generateRoutes({
   importPrefix = '@/pages/',
   dynamicImport = true,
   chunkNamePrefix = '',
-  nested = false
+  nested = false,
 }: GenerateConfig): string {
   const patterns = ['**/*.vue', '!**/__*__.vue', '!**/__*__/**']
 
   const pagePaths = fg.sync(patterns, {
     cwd: pages,
-    onlyFiles: true
+    onlyFiles: true,
   })
 
-  const metaList = resolveRoutePaths(pagePaths, importPrefix, nested, file => {
-    return fs.readFileSync(path.join(pages, file), 'utf8')
-  })
+  const metaList = resolveRoutePaths(
+    pagePaths,
+    importPrefix,
+    nested,
+    (file) => {
+      return fs.readFileSync(path.join(pages, file), 'utf8')
+    }
+  )
 
   return createRoutes(metaList, dynamicImport, chunkNamePrefix)
 }

@@ -43,7 +43,7 @@ describe('Route resolution', () => {
     'users/_id.vue',
     'users/test.vue',
     'users.vue',
-    'users/_id/foo.vue'
+    'users/_id/foo.vue',
   ])
 
   test('resolves spase nested routes', ['users.vue', 'users/session/login.vue'])
@@ -57,7 +57,7 @@ describe('Route resolution', () => {
   test('prioritizes index than dynamic route', [
     'users/_id.vue',
     'users/foo.vue',
-    'users/index.vue'
+    'users/index.vue',
   ])
 
   it('throws error when failed to parse route-meta', () => {
@@ -72,29 +72,29 @@ describe('Route resolution', () => {
     test('prioritizes static routes than dynamic ones', [
       'nested/foo.vue',
       'nested/_id.vue',
-      'nested/bar.vue'
+      'nested/bar.vue',
     ])
 
     test('prioritizes deeper routes', [
       'nested/_id/foo/bar.vue',
       'nested/_id/_key/bar.vue',
       'nested/test/foo/bar.vue',
-      'nested/test/foo/_id.vue'
+      'nested/test/foo/_id.vue',
     ])
 
     test('handles when a dynamic route is a directory', [
       'nested/_id/foo.vue',
-      'nested/foo.vue'
+      'nested/foo.vue',
     ])
 
     test('handles when a static route is a directory', [
       'nested/_id.vue',
-      'nested/foo/bar.vue'
+      'nested/foo/bar.vue',
     ])
 
     test('handles when both static and dynamic routes are directories', [
       'nested/_id/foo.vue',
-      'nested/static/foo.vue'
+      'nested/static/foo.vue',
     ])
   })
 })
