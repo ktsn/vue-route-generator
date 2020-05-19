@@ -16,8 +16,8 @@ function FooBar() {
 function FooId() {
   return import(/* webpackChunkName: \\"foo-id\\" */ '@/pages/foo/_id.vue')
 }
-function Meta() {
-  return import(/* webpackChunkName: \\"meta\\" */ '@/pages/meta.vue')
+function Route() {
+  return import(/* webpackChunkName: \\"route\\" */ '@/pages/route.vue')
 }
 function UserRegister() {
   return import(
@@ -59,9 +59,9 @@ export default [
     ],
   },
   {
-    name: 'meta',
-    path: '/meta',
-    component: Meta,
+    name: 'Test',
+    path: '/route',
+    component: Route,
     meta: {
       requiresAuth: true,
     },

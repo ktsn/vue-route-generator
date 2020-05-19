@@ -17,15 +17,49 @@ function mockReadFile(path: string): string {
     </route-meta>`
   }
 
+  if (path === 'route.vue') {
+    return `<route>
+    {
+      "name": "Test",
+      "meta": {
+        "title": "Hello"
+      }
+    }
+    </route>`
+  }
+
+  if (path === 'invalid-route.vue') {
+    return `<route>
+    {
+      "name": "Test",
+    }
+    </route>`
+  }
+
   return ''
 }
 
 describe('Route resolution', () => {
-  function test(name: string, paths: string[], nested: boolean = false): void {
+  interface TestOptions {
+    nested?: boolean
+    expectWarn?: string
+  }
+
+  function test(
+    name: string,
+    paths: string[],
+    options: TestOptions = {}
+  ): void {
     it(name, () => {
+      const spy = jest.spyOn(console, 'warn').mockImplementation()
+
       expect(
-        resolveRoutePaths(paths, '@/pages/', nested, mockReadFile)
+        resolveRoutePaths(paths, '@/pages/', !!options.nested, mockReadFile)
       ).toMatchSnapshot()
+
+      if (options.expectWarn) {
+        expect(spy).toHaveBeenCalledWith(options.expectWarn)
+      }
     })
   }
 
@@ -50,9 +84,16 @@ describe('Route resolution', () => {
 
   test('resolves number prefixed route', ['1test.vue', '1test/2nested.vue'])
 
-  test('resolve route meta', ['meta.vue'])
+  test('resolve route meta', ['meta.vue'], {
+    expectWarn:
+      '<route-meta> custom block is deprecated. Use <route> block instead. Found in meta.vue',
+  })
 
-  test('resolves as nested routes', ['index.vue', 'foo.vue'], true)
+  test('resolve route custom block', ['route.vue'])
+
+  test('resolves as nested routes', ['index.vue', 'foo.vue'], {
+    nested: true,
+  })
 
   test('prioritizes index than dynamic route', [
     'users/_id.vue',
@@ -61,11 +102,22 @@ describe('Route resolution', () => {
   ])
 
   it('throws error when failed to parse route-meta', () => {
+    const spy = jest.spyOn(console, 'warn').mockImplementation()
+
     expect(() => {
       resolveRoutePaths(['invalid-meta.vue'], '@/pages/', false, mockReadFile)
     }).toThrow(
       /Invalid json format of <route-meta> content in invalid-meta\.vue/
     )
+    expect(spy).toHaveBeenCalledWith(
+      '<route-meta> custom block is deprecated. Use <route> block instead. Found in invalid-meta.vue'
+    )
+  })
+
+  it('throws error when failed to parse route custom block', () => {
+    expect(() => {
+      resolveRoutePaths(['invalid-route.vue'], '@/pages/', false, mockReadFile)
+    }).toThrow(/Invalid json format of <route> content in invalid-route\.vue/)
   })
 
   describe('sorting', () => {

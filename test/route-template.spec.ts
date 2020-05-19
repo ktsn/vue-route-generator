@@ -91,6 +91,27 @@ describe('Route template', () => {
     expect(createRoutes(meta, false, '')).toMatchSnapshot()
   })
 
+  it('should merge route block into route record', () => {
+    const meta: PageMeta[] = [
+      {
+        name: 'foo',
+        specifier: 'Foo',
+        path: '/foo',
+        pathSegments: ['foo'],
+        component: '@/pages/foo.vue',
+        route: {
+          name: 'Test',
+          meta: {
+            title: 'Hello',
+          },
+          props: true,
+        },
+      },
+    ]
+
+    expect(createRoutes(meta, false, '')).toMatchSnapshot()
+  })
+
   it('should configure chunk name prefix', () => {
     const meta: PageMeta[] = [
       {

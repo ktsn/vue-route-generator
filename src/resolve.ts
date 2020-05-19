@@ -9,6 +9,7 @@ export interface PageMeta {
   component: string
   children?: PageMeta[]
   routeMeta?: any
+  route?: any
 }
 
 interface FileError extends Error {
@@ -16,6 +17,7 @@ interface FileError extends Error {
 }
 
 const routeMetaName = 'route-meta'
+const routeBlockName = 'route'
 
 export function resolveRoutePaths(
   paths: string[],
@@ -58,23 +60,25 @@ function pathMapToMeta(
     const routeMetaBlock = parsed.customBlocks.find(
       (b) => b.type === routeMetaName
     )
+    const routeBlock = parsed.customBlocks.find(
+      (b) => b.type === routeBlockName
+    )
 
+    // Deprecated. Will be removed in a later version
     if (routeMetaBlock) {
-      try {
-        meta.routeMeta = JSON.parse(routeMetaBlock.content)
-      } catch (err) {
-        const joinedPath = path.join('/')
-        const wrapped: FileError = new Error(
-          `Invalid json format of <route-meta> content in ${joinedPath}\n` +
-            err.message
-        )
+      console.warn(
+        '<route-meta> custom block is deprecated. Use <route> block instead. Found in ' +
+          path.join('/')
+      )
+      meta.routeMeta = tryParseCustomBlock(
+        routeMetaBlock.content,
+        path,
+        'route-meta'
+      )
+    }
 
-        // Store file path to provide useful information to downstream tools
-        // like friendly-errors-webpack-plugin
-        wrapped.file = joinedPath
-
-        throw wrapped
-      }
+    if (routeBlock) {
+      meta.route = tryParseCustomBlock(routeBlock.content, path, 'route')
     }
 
     if (map.children) {
@@ -133,6 +137,28 @@ function pathMapChildrenToMeta(
       // Prioritize static routes than dynamic routes
       return routePathComparator(a.pathSegments, b.pathSegments)
     })
+}
+
+function tryParseCustomBlock(
+  content: string,
+  filePath: string[],
+  blockName: string
+): any {
+  try {
+    return JSON.parse(content)
+  } catch (err) {
+    const joinedPath = filePath.join('/')
+    const wrapped: FileError = new Error(
+      `Invalid json format of <${blockName}> content in ${joinedPath}\n` +
+        err.message
+    )
+
+    // Store file path to provide useful information to downstream tools
+    // like friendly-errors-webpack-plugin
+    wrapped.file = joinedPath
+
+    throw wrapped
+  }
 }
 
 function isDynamicRoute(segment: string): boolean {
