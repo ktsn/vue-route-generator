@@ -44,7 +44,7 @@ function createImport(
   chunkNamePrefix: string
 ): string {
   const code = dynamic
-    ? `function ${meta.specifier}() { return import(/* webpackChunkName: "${chunkNamePrefix}${meta.name}" */ '${meta.component}') }`
+    ? `function ${meta.specifier}() { return import(/* webpackChunkName: "${chunkNamePrefix}${meta.chunkName}" */ '${meta.component}') }`
     : `import ${meta.specifier} from '${meta.component}'`
 
   return meta.children

@@ -6,6 +6,7 @@ describe('Route template', () => {
     const meta: PageMeta[] = [
       {
         name: 'foo',
+        chunkName: 'foo',
         specifier: 'Foo',
         path: '/foo',
         pathSegments: ['foo'],
@@ -13,6 +14,7 @@ describe('Route template', () => {
       },
       {
         name: 'bar',
+        chunkName: 'bar',
         specifier: 'Bar',
         path: '/bar',
         pathSegments: ['bar'],
@@ -27,6 +29,7 @@ describe('Route template', () => {
     const meta: PageMeta[] = [
       {
         name: 'foo',
+        chunkName: 'foo',
         specifier: 'Foo',
         path: '/foo',
         pathSegments: ['foo'],
@@ -34,6 +37,7 @@ describe('Route template', () => {
         children: [
           {
             name: 'bar',
+            chunkName: 'bar',
             specifier: 'FooBar',
             path: 'bar',
             pathSegments: ['foo', 'bar'],
@@ -41,6 +45,7 @@ describe('Route template', () => {
           },
           {
             name: 'baz',
+            chunkName: 'baz',
             specifier: 'FooBaz',
             path: 'baz',
             pathSegments: ['foo', 'baz'],
@@ -57,6 +62,7 @@ describe('Route template', () => {
     const meta: PageMeta[] = [
       {
         name: 'foo',
+        chunkName: 'foo',
         specifier: 'Foo',
         path: '/foo',
         pathSegments: ['foo'],
@@ -64,6 +70,7 @@ describe('Route template', () => {
       },
       {
         name: 'bar',
+        chunkName: 'bar',
         specifier: 'Bar',
         path: '/bar',
         pathSegments: ['bar'],
@@ -78,6 +85,7 @@ describe('Route template', () => {
     const meta: PageMeta[] = [
       {
         name: 'foo',
+        chunkName: 'foo',
         specifier: 'Foo',
         path: '/foo',
         pathSegments: ['foo'],
@@ -95,6 +103,7 @@ describe('Route template', () => {
     const meta: PageMeta[] = [
       {
         name: 'foo',
+        chunkName: 'foo',
         specifier: 'Foo',
         path: '/foo',
         pathSegments: ['foo'],
@@ -116,6 +125,7 @@ describe('Route template', () => {
     const meta: PageMeta[] = [
       {
         name: 'foo',
+        chunkName: 'foo',
         specifier: 'Foo',
         path: '/foo',
         pathSegments: ['foo'],
@@ -123,6 +133,7 @@ describe('Route template', () => {
       },
       {
         name: 'bar',
+        chunkName: 'bar',
         specifier: 'Bar',
         path: '/bar',
         pathSegments: ['bar'],
@@ -133,17 +144,34 @@ describe('Route template', () => {
     expect(createRoutes(meta, true, 'page-')).toMatchSnapshot()
   })
 
+  it('should pick chunkName as a webpack chunk name', () => {
+    const meta: PageMeta[] = [
+      {
+        name: 'users',
+        chunkName: 'users-index',
+        specifier: 'users_index',
+        path: '/users',
+        pathSegments: ['users'],
+        component: '@/pages/users/index.vue',
+      },
+    ]
+
+    expect(createRoutes(meta, true, 'page-')).toMatchSnapshot()
+  })
+
   it('should not include name if the route has a default child', () => {
     const meta: PageMeta[] = [
       {
         name: 'foo',
+        chunkName: 'foo',
         specifier: 'Foo',
         path: '/foo',
         pathSegments: ['foo'],
         component: '@/pages/foo.vue',
         children: [
           {
-            name: 'foo-index',
+            name: 'foo',
+            chunkName: 'foo-index',
             specifier: 'FooIndex',
             path: '',
             pathSegments: ['foo'],

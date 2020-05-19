@@ -1,33 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Integration test 1`] = `
-"function Index() {
+"function index() {
   return import(/* webpackChunkName: \\"index\\" */ '@/pages/index.vue')
 }
-function Foo() {
+function foo() {
   return import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
 }
-function FooIndex() {
+function foo_index() {
   return import(/* webpackChunkName: \\"foo-index\\" */ '@/pages/foo/index.vue')
 }
-function FooBar() {
+function foo_bar() {
   return import(/* webpackChunkName: \\"foo-bar\\" */ '@/pages/foo/bar.vue')
 }
-function FooId() {
+function foo__id() {
   return import(/* webpackChunkName: \\"foo-id\\" */ '@/pages/foo/_id.vue')
 }
-function Route() {
+function route() {
   return import(/* webpackChunkName: \\"route\\" */ '@/pages/route.vue')
 }
-function UserRegister() {
+function user_register() {
   return import(
     /* webpackChunkName: \\"user.register\\" */ '@/pages/user.register.vue'
   )
 }
-function IdIndex() {
+function _id_index() {
   return import(/* webpackChunkName: \\"id-index\\" */ '@/pages/_id/index.vue')
 }
-function IdTest() {
+function _id_test() {
   return import(/* webpackChunkName: \\"id-test\\" */ '@/pages/_id/test.vue')
 }
 
@@ -35,33 +35,33 @@ export default [
   {
     name: 'index',
     path: '/',
-    component: Index,
+    component: index,
   },
   {
     path: '/foo',
-    component: Foo,
+    component: foo,
     children: [
       {
-        name: 'foo-index',
+        name: 'foo',
         path: '',
-        component: FooIndex,
+        component: foo_index,
       },
       {
         name: 'foo-bar',
         path: 'bar',
-        component: FooBar,
+        component: foo_bar,
       },
       {
         name: 'foo-id',
         path: ':id?',
-        component: FooId,
+        component: foo__id,
       },
     ],
   },
   {
     name: 'Test',
     path: '/route',
-    component: Route,
+    component: route,
     meta: {
       requiresAuth: true,
     },
@@ -69,17 +69,17 @@ export default [
   {
     name: 'user.register',
     path: '/user.register',
-    component: UserRegister,
+    component: user_register,
   },
   {
-    name: 'id-index',
+    name: 'id',
     path: '/:id',
-    component: IdIndex,
+    component: _id_index,
   },
   {
     name: 'id-test',
     path: '/:id/test',
-    component: IdTest,
+    component: _id_test,
   },
 ]
 "
