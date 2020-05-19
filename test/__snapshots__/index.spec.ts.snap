@@ -35,7 +35,7 @@ export default [
   {
     name: 'index',
     path: '/',
-    component: Index
+    component: Index,
   },
   {
     path: '/foo',
@@ -44,43 +44,43 @@ export default [
       {
         name: 'foo-index',
         path: '',
-        component: FooIndex
+        component: FooIndex,
       },
       {
         name: 'foo-bar',
         path: 'bar',
-        component: FooBar
+        component: FooBar,
       },
       {
         name: 'foo-id',
         path: ':id?',
-        component: FooId
-      }
-    ]
+        component: FooId,
+      },
+    ],
   },
   {
     name: 'meta',
     path: '/meta',
     component: Meta,
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
     name: 'user.register',
     path: '/user.register',
-    component: UserRegister
+    component: UserRegister,
   },
   {
     name: 'id-index',
     path: '/:id',
-    component: IdIndex
+    component: IdIndex,
   },
   {
     name: 'id-test',
     path: '/:id/test',
-    component: IdTest
-  }
+    component: IdTest,
+  },
 ]
 "
 `;
