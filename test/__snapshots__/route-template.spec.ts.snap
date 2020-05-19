@@ -114,6 +114,23 @@ export default [
 "
 `;
 
+exports[`Route template should merge route block into route record 1`] = `
+"import Foo from '@/pages/foo.vue'
+
+export default [
+  {
+    name: 'Test',
+    path: '/foo',
+    component: Foo,
+    meta: {
+      title: 'Hello',
+    },
+    props: true,
+  },
+]
+"
+`;
+
 exports[`Route template should not include name if the route has a default child 1`] = `
 "function Foo() {
   return import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')

@@ -34,6 +34,26 @@ Array [
 ]
 `;
 
+exports[`Route resolution resolve route custom block 1`] = `
+Array [
+  Object {
+    "component": "@/pages/route.vue",
+    "name": "route",
+    "path": "/route",
+    "pathSegments": Array [
+      "route",
+    ],
+    "route": Object {
+      "meta": Object {
+        "title": "Hello",
+      },
+      "name": "Test",
+    },
+    "specifier": "Route",
+  },
+]
+`;
+
 exports[`Route resolution resolve route meta 1`] = `
 Array [
   Object {
