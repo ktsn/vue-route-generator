@@ -9,15 +9,15 @@ describe('Route template', () => {
         specifier: 'Foo',
         path: '/foo',
         pathSegments: ['foo'],
-        component: '@/pages/foo.vue'
+        component: '@/pages/foo.vue',
       },
       {
         name: 'bar',
         specifier: 'Bar',
         path: '/bar',
         pathSegments: ['bar'],
-        component: '@/pages/bar.vue'
-      }
+        component: '@/pages/bar.vue',
+      },
     ]
 
     expect(createRoutes(meta, true, '')).toMatchSnapshot()
@@ -37,17 +37,17 @@ describe('Route template', () => {
             specifier: 'FooBar',
             path: 'bar',
             pathSegments: ['foo', 'bar'],
-            component: '@/pages/bar.vue'
+            component: '@/pages/bar.vue',
           },
           {
             name: 'baz',
             specifier: 'FooBaz',
             path: 'baz',
             pathSegments: ['foo', 'baz'],
-            component: '@/pages/baz.vue'
-          }
-        ]
-      }
+            component: '@/pages/baz.vue',
+          },
+        ],
+      },
     ]
 
     expect(createRoutes(meta, true, '')).toMatchSnapshot()
@@ -60,15 +60,15 @@ describe('Route template', () => {
         specifier: 'Foo',
         path: '/foo',
         pathSegments: ['foo'],
-        component: '@/pages/foo.vue'
+        component: '@/pages/foo.vue',
       },
       {
         name: 'bar',
         specifier: 'Bar',
         path: '/bar',
         pathSegments: ['bar'],
-        component: '@/pages/bar.vue'
-      }
+        component: '@/pages/bar.vue',
+      },
     ]
 
     expect(createRoutes(meta, false, '')).toMatchSnapshot()
@@ -83,9 +83,9 @@ describe('Route template', () => {
         pathSegments: ['foo'],
         component: '@/pages/foo.vue',
         routeMeta: {
-          title: 'Hello'
-        }
-      }
+          title: 'Hello',
+        },
+      },
     ]
 
     expect(createRoutes(meta, false, '')).toMatchSnapshot()
@@ -98,15 +98,15 @@ describe('Route template', () => {
         specifier: 'Foo',
         path: '/foo',
         pathSegments: ['foo'],
-        component: '@/pages/foo.vue'
+        component: '@/pages/foo.vue',
       },
       {
         name: 'bar',
         specifier: 'Bar',
         path: '/bar',
         pathSegments: ['bar'],
-        component: '@/pages/bar.vue'
-      }
+        component: '@/pages/bar.vue',
+      },
     ]
 
     expect(createRoutes(meta, true, 'page-')).toMatchSnapshot()
@@ -126,10 +126,10 @@ describe('Route template', () => {
             specifier: 'FooIndex',
             path: '',
             pathSegments: ['foo'],
-            component: '@/pages/foo/index.vue'
-          }
-        ]
-      }
+            component: '@/pages/foo/index.vue',
+          },
+        ],
+      },
     ]
 
     expect(createRoutes(meta, true, '')).toMatchSnapshot()

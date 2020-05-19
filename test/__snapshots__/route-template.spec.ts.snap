@@ -12,13 +12,13 @@ export default [
   {
     name: 'foo',
     path: '/foo',
-    component: Foo
+    component: Foo,
   },
   {
     name: 'bar',
     path: '/bar',
-    component: Bar
-  }
+    component: Bar,
+  },
 ]
 "
 `;
@@ -43,15 +43,15 @@ export default [
       {
         name: 'bar',
         path: 'bar',
-        component: FooBar
+        component: FooBar,
       },
       {
         name: 'baz',
         path: 'baz',
-        component: FooBaz
-      }
-    ]
-  }
+        component: FooBaz,
+      },
+    ],
+  },
 ]
 "
 `;
@@ -65,9 +65,9 @@ export default [
     path: '/foo',
     component: Foo,
     meta: {
-      title: 'Hello'
-    }
-  }
+      title: 'Hello',
+    },
+  },
 ]
 "
 `;
@@ -84,13 +84,13 @@ export default [
   {
     name: 'foo',
     path: '/foo',
-    component: Foo
+    component: Foo,
   },
   {
     name: 'bar',
     path: '/bar',
-    component: Bar
-  }
+    component: Bar,
+  },
 ]
 "
 `;
@@ -103,13 +103,13 @@ export default [
   {
     name: 'foo',
     path: '/foo',
-    component: Foo
+    component: Foo,
   },
   {
     name: 'bar',
     path: '/bar',
-    component: Bar
-  }
+    component: Bar,
+  },
 ]
 "
 `;
@@ -130,10 +130,10 @@ export default [
       {
         name: 'foo-index',
         path: '',
-        component: FooIndex
-      }
-    ]
-  }
+        component: FooIndex,
+      },
+    ],
+  },
 ]
 "
 `;
