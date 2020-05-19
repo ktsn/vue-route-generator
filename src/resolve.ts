@@ -87,7 +87,7 @@ function pathMapToMeta(
         importPrefix,
         nested,
         readFile,
-        path.length
+        meta.pathSegments.length
       )
     }
 
@@ -177,21 +177,18 @@ function isOmittable(segment: string): boolean {
 function toActualPath(segments: string[]): string[] {
   const lastIndex = segments.length - 1
   const last = basename(segments[lastIndex])
+  segments = segments.slice(0, -1).concat(last)
 
-  if (isOmittable(last)) {
-    segments = segments.slice(0, -1)
-  } else {
-    segments = segments.slice(0, -1).concat(last)
-  }
-
-  return segments.map((s, i) => {
-    if (s[0] === '_') {
-      const suffix = lastIndex === i ? '?' : ''
-      return ':' + s.slice(1) + suffix
-    } else {
-      return s
-    }
-  })
+  return segments
+    .filter((s) => !isOmittable(s))
+    .map((s, i) => {
+      if (s[0] === '_') {
+        const suffix = lastIndex === i ? '?' : ''
+        return ':' + s.slice(1) + suffix
+      } else {
+        return s
+      }
+    })
 }
 
 function pathToMapPath(segments: string[]): string[] {
