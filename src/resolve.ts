@@ -3,6 +3,7 @@ import { NestedMap, setToMap } from './nested-map'
 
 export interface PageMeta {
   name: string
+  chunkName: string
   specifier: string
   path: string
   pathSegments: string[]
@@ -47,6 +48,7 @@ function pathMapToMeta(
 
     const meta: PageMeta = {
       name: pathToName(path),
+      chunkName: pathToChunkName(path),
       specifier: pathToSpecifier(path),
       path: pathToRoute(path, parentDepth, nested),
       pathSegments: toActualPath(path),
@@ -198,6 +200,24 @@ function pathToMapPath(segments: string[]): string[] {
 
 function pathToName(segments: string[]): string {
   const last = segments[segments.length - 1]
+  segments = segments
+    .slice(0, -1)
+    .concat(basename(last))
+    .filter((s) => !isOmittable(s))
+
+  if (segments.length === 0) {
+    return 'index'
+  }
+
+  return segments
+    .map((s) => {
+      return s[0] === '_' ? s.slice(1) : s
+    })
+    .join('-')
+}
+
+function pathToChunkName(segments: string[]): string {
+  const last = segments[segments.length - 1]
   segments = segments.slice(0, -1).concat(basename(last))
 
   return segments
@@ -208,12 +228,12 @@ function pathToName(segments: string[]): string {
 }
 
 function pathToSpecifier(segments: string[]): string {
-  const name = pathToName(segments)
-  const replaced = name
-    .replace(/(^|[^a-zA-Z])([a-zA-Z])/g, (_, a, b) => {
-      return a + b.toUpperCase()
-    })
-    .replace(/[^a-zA-Z0-9]/g, '')
+  const last = segments[segments.length - 1]
+  const replaced = segments
+    .slice(0, -1)
+    .concat(basename(last))
+    .join('_')
+    .replace(/[^a-zA-Z0-9]/g, '_')
 
   return /^\d/.test(replaced) ? '_' + replaced : replaced
 }

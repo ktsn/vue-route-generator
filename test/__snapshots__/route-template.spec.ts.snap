@@ -145,11 +145,28 @@ export default [
     component: Foo,
     children: [
       {
-        name: 'foo-index',
+        name: 'foo',
         path: '',
         component: FooIndex,
       },
     ],
+  },
+]
+"
+`;
+
+exports[`Route template should pick chunkName as a webpack chunk name 1`] = `
+"function users_index() {
+  return import(
+    /* webpackChunkName: \\"page-users-index\\" */ '@/pages/users/index.vue'
+  )
+}
+
+export default [
+  {
+    name: 'users',
+    path: '/users',
+    component: users_index,
   },
 ]
 "
