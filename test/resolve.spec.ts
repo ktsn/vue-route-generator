@@ -99,6 +99,8 @@ describe('Route resolution', () => {
 
   test('resolve route custom block', ['route.vue'])
 
+  test('resolve route custom block with `lang="js"`', ['route-js.vue'])
+
   test('resolves as nested routes', ['index.vue', 'foo.vue'], {
     nested: true,
   })

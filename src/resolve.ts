@@ -80,7 +80,7 @@ function pathMapToMeta(
     }
 
     if (routeBlock) {
-      meta.route = tryParseCustomBlock(routeBlock.content, path, 'route')
+      meta.route = tryParseCustomBlock(routeBlock.content, path, 'route', routeBlock.attrs.lang)
     }
 
     if (map.children) {
@@ -141,7 +141,7 @@ function pathMapChildrenToMeta(
     })
 }
 
-function tryParseCustomBlock(
+function tryParseCustomBlockWithJSON(
   content: string,
   filePath: string[],
   blockName: string
@@ -161,6 +161,56 @@ function tryParseCustomBlock(
 
     throw wrapped
   }
+}
+
+function tryParseCustomBlockWithJS(
+  content: string,
+  filePath: string[],
+  blockName: string
+): any {
+  try {
+    const contentWithoutLineBreaks = content.replace(/(\r\n|\n|\r)/gm, "")
+    const parsed = new Function(`return ${contentWithoutLineBreaks}`)()
+    return { ...parsed }
+  } catch (err) { 
+    const joinedPath = filePath.join('/')
+    const wrapped: FileError = new Error(
+      `Invalid js object format of <${blockName}> content in ${joinedPath}\n` +
+        err.message
+    )
+
+    // Store file path to provide useful information to downstream tools
+    // like friendly-errors-webpack-plugin
+    wrapped.file = joinedPath
+
+    throw wrapped
+  }
+}
+
+const parsers: Record<string, Function> = {
+  'json': tryParseCustomBlockWithJSON,
+  'js': tryParseCustomBlockWithJS,
+}
+
+function tryParseCustomBlock(
+  content: string,
+  filePath: string[],
+  blockName: string,
+  lang: string = 'json'
+): any {
+  if (!parsers.hasOwnProperty(lang)) {
+    const joinedPath = filePath.join('/')
+    const wrapped: FileError = new Error(
+      `Invalid lang of <${blockName}> content in ${joinedPath}`
+    )
+
+    // Store file path to provide useful information to downstream tools
+    // like friendly-errors-webpack-plugin
+    wrapped.file = joinedPath
+
+    throw wrapped
+  }
+  return parsers[lang](content, filePath, blockName)
 }
 
 function isDynamicRoute(segment: string): boolean {

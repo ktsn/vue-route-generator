@@ -58,6 +58,21 @@ Array [
 ]
 `;
 
+exports[`Route resolution resolve route custom block with \`lang="js"\` 1`] = `
+Array [
+  Object {
+    "chunkName": "route-js",
+    "component": "@/pages/route-js.vue",
+    "name": "route-js",
+    "path": "/route-js",
+    "pathSegments": Array [
+      "route-js",
+    ],
+    "specifier": "route_js",
+  },
+]
+`;
+
 exports[`Route resolution resolve route meta 1`] = `
 Array [
   Object {
