@@ -128,6 +128,15 @@ module.exports = [
 ]
 ```
 
+## Syntax Highlighting
+
+To enable syntax highlighting in VS Code using [Vetur's Custom Code Blocks](https://vuejs.github.io/vetur/highlighting.html#custom-block) add the following snippet to your preferences...
+```
+ "vetur.grammar.customBlocks": {
+    "route": "json"
+  }
+```
+
 ## References
 
 ### `generateRoutes(config: GenerateConfig): string`
