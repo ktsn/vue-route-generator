@@ -86,9 +86,7 @@ export function createRoutes(
   const code = `${imports}\n\nexport default [${routes}]`
 
   const result = transformSync(code, {
-    presets: [
-      ['@babel/preset-env', { modules: false }]
-    ],
+    presets: [['@babel/preset-env', { modules: false }]],
   })
 
   if (!result?.code) {
