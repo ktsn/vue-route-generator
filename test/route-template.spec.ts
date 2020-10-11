@@ -22,7 +22,7 @@ describe('Route template', () => {
       },
     ]
 
-    expect(createRoutes(meta, true, '')).toMatchSnapshot()
+    expect(createRoutes(meta, true, '', true)).toMatchSnapshot()
   })
 
   it('should generate nested routes', () => {
@@ -55,7 +55,7 @@ describe('Route template', () => {
       },
     ]
 
-    expect(createRoutes(meta, true, '')).toMatchSnapshot()
+    expect(createRoutes(meta, true, '', true)).toMatchSnapshot()
   })
 
   it('should generate static import code', () => {
@@ -78,7 +78,7 @@ describe('Route template', () => {
       },
     ]
 
-    expect(createRoutes(meta, false, '')).toMatchSnapshot()
+    expect(createRoutes(meta, false, '', true)).toMatchSnapshot()
   })
 
   it('should generate route meta', () => {
@@ -96,7 +96,7 @@ describe('Route template', () => {
       },
     ]
 
-    expect(createRoutes(meta, false, '')).toMatchSnapshot()
+    expect(createRoutes(meta, false, '', true)).toMatchSnapshot()
   })
 
   it('should merge route block into route record', () => {
@@ -109,16 +109,39 @@ describe('Route template', () => {
         pathSegments: ['foo'],
         component: '@/pages/foo.vue',
         route: {
-          name: 'Test',
-          meta: {
-            title: 'Hello',
+          lang: 'json',
+          index: 0,
+          content: {
+            name: 'Test',
+            meta: {
+              title: 'Hello',
+            },
+            props: true,
           },
-          props: true,
         },
       },
     ]
 
-    expect(createRoutes(meta, false, '')).toMatchSnapshot()
+    expect(createRoutes(meta, false, '', true)).toMatchSnapshot()
+  })
+
+  it('should import and merge route block if inlineRouteBlock is false', () => {
+    const meta: PageMeta[] = [
+      {
+        name: 'foo',
+        chunkName: 'foo',
+        specifier: 'Foo',
+        path: '/foo',
+        pathSegments: ['foo'],
+        component: '@/pages/foo.vue',
+        route: {
+          lang: 'json',
+          index: 0,
+        },
+      },
+    ]
+
+    expect(createRoutes(meta, false, '', false)).toMatchSnapshot()
   })
 
   it('should configure chunk name prefix', () => {
@@ -141,7 +164,7 @@ describe('Route template', () => {
       },
     ]
 
-    expect(createRoutes(meta, true, 'page-')).toMatchSnapshot()
+    expect(createRoutes(meta, true, 'page-', true)).toMatchSnapshot()
   })
 
   it('should pick chunkName as a webpack chunk name', () => {
@@ -156,7 +179,7 @@ describe('Route template', () => {
       },
     ]
 
-    expect(createRoutes(meta, true, 'page-')).toMatchSnapshot()
+    expect(createRoutes(meta, true, 'page-', true)).toMatchSnapshot()
   })
 
   it('should not include name if the route has a default child', () => {
@@ -181,6 +204,6 @@ describe('Route template', () => {
       },
     ]
 
-    expect(createRoutes(meta, true, '')).toMatchSnapshot()
+    expect(createRoutes(meta, true, '', true)).toMatchSnapshot()
   })
 })

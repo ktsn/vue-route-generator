@@ -1,6 +1,12 @@
 import { parseComponent } from 'vue-template-compiler'
 import { NestedMap, setToMap } from './nested-map'
 
+export interface PageMetaRouteBlock {
+  lang: string
+  index: number
+  content?: any
+}
+
 export interface PageMeta {
   name: string
   chunkName: string
@@ -10,7 +16,7 @@ export interface PageMeta {
   component: string
   children?: PageMeta[]
   routeMeta?: any
-  route?: any
+  route?: PageMetaRouteBlock
 }
 
 interface FileError extends Error {
@@ -20,11 +26,16 @@ interface FileError extends Error {
 const routeMetaName = 'route-meta'
 const routeBlockName = 'route'
 
+export interface ResolveRoutePathsOptions {
+  importPrefix: string
+  nested: boolean
+  inlineRouteBlock: boolean
+  readFile: (path: string) => string
+}
+
 export function resolveRoutePaths(
   paths: string[],
-  importPrefix: string,
-  nested: boolean,
-  readFile: (path: string) => string
+  options: ResolveRoutePathsOptions
 ): PageMeta[] {
   const map: NestedMap<string[]> = {}
 
@@ -33,16 +44,16 @@ export function resolveRoutePaths(
     setToMap(map, pathToMapPath(path), path)
   })
 
-  return pathMapToMeta(map, importPrefix, nested, readFile)
+  return pathMapToMeta(map, options)
 }
 
 function pathMapToMeta(
   map: NestedMap<string[]>,
-  importPrefix: string,
-  nested: boolean,
-  readFile: (path: string) => string,
+  options: ResolveRoutePathsOptions,
   parentDepth: number = 0
 ): PageMeta[] {
+  const { importPrefix, nested, inlineRouteBlock, readFile } = options
+
   if (map.value) {
     const path = map.value
 
@@ -80,15 +91,24 @@ function pathMapToMeta(
     }
 
     if (routeBlock) {
-      meta.route = tryParseCustomBlock(routeBlock.content, path, 'route')
+      meta.route = {
+        lang: routeBlock.attrs.lang || 'json',
+        index: parsed.customBlocks.indexOf(routeBlock),
+      }
+
+      if (inlineRouteBlock) {
+        meta.route.content = tryParseCustomBlock(
+          routeBlock.content,
+          path,
+          'route'
+        )
+      }
     }
 
     if (map.children) {
       meta.children = pathMapChildrenToMeta(
         map.children,
-        importPrefix,
-        nested,
-        readFile,
+        options,
         meta.pathSegments.length
       )
     }
@@ -97,13 +117,7 @@ function pathMapToMeta(
   }
 
   return map.children
-    ? pathMapChildrenToMeta(
-        map.children,
-        importPrefix,
-        nested,
-        readFile,
-        parentDepth
-      )
+    ? pathMapChildrenToMeta(map.children, options, parentDepth)
     : []
 }
 
@@ -124,16 +138,12 @@ function routePathComparator(a: string[], b: string[]): number {
 
 function pathMapChildrenToMeta(
   children: Map<string, NestedMap<string[]>>,
-  importPrefix: string,
-  nested: boolean,
-  readFile: (path: string) => string,
+  options: ResolveRoutePathsOptions,
   parentDepth: number
 ): PageMeta[] {
   return Array.from(children.values())
     .reduce<PageMeta[]>((acc, value) => {
-      return acc.concat(
-        pathMapToMeta(value, importPrefix, nested, readFile, parentDepth)
-      )
+      return acc.concat(pathMapToMeta(value, options, parentDepth))
     }, [])
     .sort((a, b) => {
       // Prioritize static routes than dynamic routes

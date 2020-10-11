@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Route resolution do not resolve route custom block if inlineRouteBlock is false 1`] = `
+Array [
+  Object {
+    "chunkName": "route",
+    "component": "@/pages/route.vue",
+    "name": "route",
+    "path": "/route",
+    "pathSegments": Array [
+      "route",
+    ],
+    "route": Object {
+      "index": 0,
+      "lang": "json",
+    },
+    "specifier": "route",
+  },
+]
+`;
+
 exports[`Route resolution prioritizes index than dynamic route 1`] = `
 Array [
   Object {
@@ -48,10 +67,14 @@ Array [
       "route",
     ],
     "route": Object {
-      "meta": Object {
-        "title": "Hello",
+      "content": Object {
+        "meta": Object {
+          "title": "Hello",
+        },
+        "name": "Test",
       },
-      "name": "Test",
+      "index": 0,
+      "lang": "json",
     },
     "specifier": "route",
   },

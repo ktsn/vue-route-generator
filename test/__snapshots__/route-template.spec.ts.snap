@@ -114,6 +114,21 @@ export default [
 "
 `;
 
+exports[`Route template should import and merge route block if inlineRouteBlock is false 1`] = `
+"import Foo from '@/pages/foo.vue'
+import Foo___route from '@/pages/foo.vue?vue&type=custom&blockType=route&index=0&lang=json'
+
+export default [
+  {
+    name: 'foo',
+    ...Foo___route,
+    path: '/foo',
+    component: Foo,
+  },
+]
+"
+`;
+
 exports[`Route template should merge route block into route record 1`] = `
 "import Foo from '@/pages/foo.vue'
 

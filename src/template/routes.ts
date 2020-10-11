@@ -5,34 +5,44 @@ function isAllowedRouteOption(key: string): boolean {
   return !['name', 'meta', 'path', 'component'].includes(key)
 }
 
-function createChildrenRoute(children: PageMeta[]): string {
-  return `,children: [${children.map(createRoute).join(',')}]`
+function createChildrenRoute(
+  children: PageMeta[],
+  inlineRouteBlock: boolean
+): string {
+  return `,children: [${children
+    .map((c) => createRoute(c, inlineRouteBlock))
+    .join(',')}]`
 }
 
-function createRoute(meta: PageMeta): string {
-  const children = !meta.children ? '' : createChildrenRoute(meta.children)
-  const route = meta.route ?? {}
+function createRoute(meta: PageMeta, inlineRouteBlock: boolean): string {
+  const children = !meta.children
+    ? ''
+    : createChildrenRoute(meta.children, inlineRouteBlock)
+  const route = meta.route
 
   // If default child is exists, the route should not have a name.
   const routeName =
     meta.children && meta.children.some((m) => m.path === '')
       ? ''
-      : `name: '${route.name ?? meta.name}',`
+      : `name: '${route?.content?.name ?? meta.name}',`
 
   const routeMeta = meta.routeMeta
     ? ',meta: ' + JSON.stringify(meta.routeMeta, null, 2)
-    : meta.route?.meta
-    ? ',meta: ' + JSON.stringify(route.meta, null, 2)
+    : route?.content?.meta
+    ? ',meta: ' + JSON.stringify(route.content.meta, null, 2)
     : ''
 
-  const otherOptions = Object.keys(route)
+  const otherOptions = Object.keys(route?.content ?? {})
     .filter(isAllowedRouteOption)
-    .map((key) => `,${key}: ${JSON.stringify(route[key])}`)
+    .map((key) => `,${key}: ${JSON.stringify(route?.content[key])}`)
     .join(',')
+
+  const routeBlockSpread =
+    !inlineRouteBlock && meta.route ? `...${meta.specifier}___route,` : ''
 
   return `
   {
-    ${routeName}
+    ${routeName}${routeBlockSpread}
     path: '${meta.path}',
     component: ${meta.specifier}${routeMeta}${otherOptions}${children}
   }`
@@ -41,17 +51,22 @@ function createRoute(meta: PageMeta): string {
 function createImport(
   meta: PageMeta,
   dynamic: boolean,
-  chunkNamePrefix: string
+  chunkNamePrefix: string,
+  inlineRouteBlock: boolean
 ): string {
-  const code = dynamic
+  let code = dynamic
     ? `function ${meta.specifier}() { return import(/* webpackChunkName: "${chunkNamePrefix}${meta.chunkName}" */ '${meta.component}') }`
     : `import ${meta.specifier} from '${meta.component}'`
+
+  if (meta.route && !inlineRouteBlock) {
+    code += `\nimport ${meta.specifier}___route from '${meta.component}?vue&type=custom&blockType=route&index=${meta.route.index}&lang=${meta.route.lang}'`
+  }
 
   return meta.children
     ? [code]
         .concat(
           meta.children.map((child) =>
-            createImport(child, dynamic, chunkNamePrefix)
+            createImport(child, dynamic, chunkNamePrefix, inlineRouteBlock)
           )
         )
         .join('\n')
@@ -61,12 +76,13 @@ function createImport(
 export function createRoutes(
   meta: PageMeta[],
   dynamic: boolean,
-  chunkNamePrefix: string
+  chunkNamePrefix: string,
+  inlineRouteBlock: boolean
 ): string {
   const imports = meta
-    .map((m) => createImport(m, dynamic, chunkNamePrefix))
+    .map((m) => createImport(m, dynamic, chunkNamePrefix, inlineRouteBlock))
     .join('\n')
-  const code = meta.map(createRoute).join(',')
+  const code = meta.map((m) => createRoute(m, inlineRouteBlock)).join(',')
   return prettier.format(`${imports}\n\nexport default [${code}]`, {
     parser: 'babel',
     semi: false,
