@@ -59,7 +59,7 @@ function createImport(
     : `import ${meta.specifier} from '${meta.component}'`
 
   if (meta.route && !inlineRouteBlock) {
-    code += `\nimport ${meta.specifier}___route from '${meta.component}?vue&type=custom&blockType=route&index=${meta.route.index}&lang=${meta.route.lang}'`
+    code += `\nimport ${meta.specifier}___route from '${meta.component}?vue&vueRouteGenerator&type=custom&blockType=route&index=${meta.route.index}&lang=${meta.route.lang}'`
   }
 
   return meta.children
