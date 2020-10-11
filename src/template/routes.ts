@@ -1,4 +1,4 @@
-import * as prettier from 'prettier'
+import { transformSync } from '@babel/core'
 import { PageMeta } from '../resolve'
 
 function isAllowedRouteOption(key: string): boolean {
@@ -82,10 +82,18 @@ export function createRoutes(
   const imports = meta
     .map((m) => createImport(m, dynamic, chunkNamePrefix, inlineRouteBlock))
     .join('\n')
-  const code = meta.map((m) => createRoute(m, inlineRouteBlock)).join(',')
-  return prettier.format(`${imports}\n\nexport default [${code}]`, {
-    parser: 'babel',
-    semi: false,
-    singleQuote: true,
+  const routes = meta.map((m) => createRoute(m, inlineRouteBlock)).join(',')
+  const code = `${imports}\n\nexport default [${routes}]`
+
+  const result = transformSync(code, {
+    presets: [
+      ['@babel/preset-env', { modules: false }]
+    ],
   })
+
+  if (!result?.code) {
+    throw new Error('Error during transform')
+  }
+
+  return result.code
 }
