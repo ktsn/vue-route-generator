@@ -79,6 +79,8 @@ describe('Route resolution', () => {
 
   test('resolves dynamic routes with required param', ['users/_id/index.vue'])
 
+  test('resolves optional dynamic route under index', ['index/_param.vue'])
+
   test('resolves nested routes', ['foo.vue', 'foo/index.vue', 'foo/bar.vue'])
 
   test('resolves dynamic nested routes', [
