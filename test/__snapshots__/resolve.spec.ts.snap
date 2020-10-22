@@ -324,6 +324,21 @@ Array [
 ]
 `;
 
+exports[`Route resolution resolves optional dynamic route under index 1`] = `
+Array [
+  Object {
+    "chunkName": "index-param",
+    "component": "@/pages/index/_param.vue",
+    "name": "param",
+    "path": "/:param?",
+    "pathSegments": Array [
+      ":param?",
+    ],
+    "specifier": "index__param",
+  },
+]
+`;
+
 exports[`Route resolution resolves routes 1`] = `
 Array [
   Object {

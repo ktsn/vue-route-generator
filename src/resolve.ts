@@ -182,7 +182,6 @@ function toActualPath(segments: string[]): string[] {
   segments = segments.slice(0, -1).concat(last)
 
   return segments
-    .filter((s) => !isOmittable(s))
     .map((s, i) => {
       if (s[0] === '_') {
         const suffix = lastIndex === i ? '?' : ''
@@ -191,6 +190,7 @@ function toActualPath(segments: string[]): string[] {
         return s
       }
     })
+    .filter((s) => !isOmittable(s))
 }
 
 function pathToMapPath(segments: string[]): string[] {
