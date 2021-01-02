@@ -42,6 +42,7 @@ function mockReadFile(path: string): string {
 describe('Route resolution', () => {
   interface TestOptions {
     nested?: boolean
+    inlineRouteBlock?: boolean
     expectWarn?: string
   }
 
@@ -54,7 +55,12 @@ describe('Route resolution', () => {
       const spy = jest.spyOn(console, 'warn').mockImplementation()
 
       expect(
-        resolveRoutePaths(paths, '@/pages/', !!options.nested, mockReadFile)
+        resolveRoutePaths(paths, {
+          importPrefix: '@/pages/',
+          nested: !!options.nested,
+          inlineRouteBlock: options.inlineRouteBlock ?? true,
+          readFile: mockReadFile,
+        })
       ).toMatchSnapshot()
 
       if (options.expectWarn) {
@@ -101,6 +107,14 @@ describe('Route resolution', () => {
 
   test('resolve route custom block', ['route.vue'])
 
+  test(
+    'do not resolve route custom block if inlineRouteBlock is false',
+    ['route.vue'],
+    {
+      inlineRouteBlock: false,
+    }
+  )
+
   test('resolves as nested routes', ['index.vue', 'foo.vue'], {
     nested: true,
   })
@@ -115,7 +129,12 @@ describe('Route resolution', () => {
     const spy = jest.spyOn(console, 'warn').mockImplementation()
 
     expect(() => {
-      resolveRoutePaths(['invalid-meta.vue'], '@/pages/', false, mockReadFile)
+      resolveRoutePaths(['invalid-meta.vue'], {
+        importPrefix: '@/pages/',
+        nested: false,
+        inlineRouteBlock: true,
+        readFile: mockReadFile,
+      })
     }).toThrow(
       /Invalid json format of <route-meta> content in invalid-meta\.vue/
     )
@@ -126,7 +145,12 @@ describe('Route resolution', () => {
 
   it('throws error when failed to parse route custom block', () => {
     expect(() => {
-      resolveRoutePaths(['invalid-route.vue'], '@/pages/', false, mockReadFile)
+      resolveRoutePaths(['invalid-route.vue'], {
+        importPrefix: '@/pages/',
+        nested: false,
+        inlineRouteBlock: true,
+        readFile: mockReadFile,
+      })
     }).toThrow(/Invalid json format of <route> content in invalid-route\.vue/)
   })
 

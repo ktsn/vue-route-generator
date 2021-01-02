@@ -2,172 +2,177 @@
 
 exports[`Route template should configure chunk name prefix 1`] = `
 "function Foo() {
-  return import(/* webpackChunkName: \\"page-foo\\" */ '@/pages/foo.vue')
-}
-function Bar() {
-  return import(/* webpackChunkName: \\"page-bar\\" */ '@/pages/bar.vue')
+  return import(
+  /* webpackChunkName: \\"page-foo\\" */
+  '@/pages/foo.vue');
 }
 
-export default [
-  {
-    name: 'foo',
-    path: '/foo',
-    component: Foo,
-  },
-  {
-    name: 'bar',
-    path: '/bar',
-    component: Bar,
-  },
-]
-"
+function Bar() {
+  return import(
+  /* webpackChunkName: \\"page-bar\\" */
+  '@/pages/bar.vue');
+}
+
+export default [{
+  name: 'foo',
+  path: '/foo',
+  component: Foo
+}, {
+  name: 'bar',
+  path: '/bar',
+  component: Bar
+}];"
 `;
 
 exports[`Route template should generate nested routes 1`] = `
 "function Foo() {
-  return import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
-}
-function FooBar() {
-  return import(/* webpackChunkName: \\"bar\\" */ '@/pages/bar.vue')
-}
-function FooBaz() {
-  return import(/* webpackChunkName: \\"baz\\" */ '@/pages/baz.vue')
+  return import(
+  /* webpackChunkName: \\"foo\\" */
+  '@/pages/foo.vue');
 }
 
-export default [
-  {
-    name: 'foo',
-    path: '/foo',
-    component: Foo,
-    children: [
-      {
-        name: 'bar',
-        path: 'bar',
-        component: FooBar,
-      },
-      {
-        name: 'baz',
-        path: 'baz',
-        component: FooBaz,
-      },
-    ],
-  },
-]
-"
+function FooBar() {
+  return import(
+  /* webpackChunkName: \\"bar\\" */
+  '@/pages/bar.vue');
+}
+
+function FooBaz() {
+  return import(
+  /* webpackChunkName: \\"baz\\" */
+  '@/pages/baz.vue');
+}
+
+export default [{
+  name: 'foo',
+  path: '/foo',
+  component: Foo,
+  children: [{
+    name: 'bar',
+    path: 'bar',
+    component: FooBar
+  }, {
+    name: 'baz',
+    path: 'baz',
+    component: FooBaz
+  }]
+}];"
 `;
 
 exports[`Route template should generate route meta 1`] = `
-"import Foo from '@/pages/foo.vue'
-
-export default [
-  {
-    name: 'foo',
-    path: '/foo',
-    component: Foo,
-    meta: {
-      title: 'Hello',
-    },
-  },
-]
-"
+"import Foo from '@/pages/foo.vue';
+export default [{
+  name: 'foo',
+  path: '/foo',
+  component: Foo,
+  meta: {
+    \\"title\\": \\"Hello\\"
+  }
+}];"
 `;
 
 exports[`Route template should generate routes 1`] = `
 "function Foo() {
-  return import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
-}
-function Bar() {
-  return import(/* webpackChunkName: \\"bar\\" */ '@/pages/bar.vue')
+  return import(
+  /* webpackChunkName: \\"foo\\" */
+  '@/pages/foo.vue');
 }
 
-export default [
-  {
-    name: 'foo',
-    path: '/foo',
-    component: Foo,
-  },
-  {
-    name: 'bar',
-    path: '/bar',
-    component: Bar,
-  },
-]
-"
+function Bar() {
+  return import(
+  /* webpackChunkName: \\"bar\\" */
+  '@/pages/bar.vue');
+}
+
+export default [{
+  name: 'foo',
+  path: '/foo',
+  component: Foo
+}, {
+  name: 'bar',
+  path: '/bar',
+  component: Bar
+}];"
 `;
 
 exports[`Route template should generate static import code 1`] = `
-"import Foo from '@/pages/foo.vue'
-import Bar from '@/pages/bar.vue'
+"import Foo from '@/pages/foo.vue';
+import Bar from '@/pages/bar.vue';
+export default [{
+  name: 'foo',
+  path: '/foo',
+  component: Foo
+}, {
+  name: 'bar',
+  path: '/bar',
+  component: Bar
+}];"
+`;
 
-export default [
-  {
-    name: 'foo',
-    path: '/foo',
-    component: Foo,
-  },
-  {
-    name: 'bar',
-    path: '/bar',
-    component: Bar,
-  },
-]
-"
+exports[`Route template should import and merge route block if inlineRouteBlock is false 1`] = `
+"function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import Foo from '@/pages/foo.vue';
+import Foo___route from '@/pages/foo.vue?vue&vueRouteGenerator&type=custom&blockType=route&index=0&lang=json';
+export default [_objectSpread(_objectSpread({
+  name: 'foo'
+}, Foo___route), {}, {
+  path: '/foo',
+  component: Foo
+})];"
 `;
 
 exports[`Route template should merge route block into route record 1`] = `
-"import Foo from '@/pages/foo.vue'
-
-export default [
-  {
-    name: 'Test',
-    path: '/foo',
-    component: Foo,
-    meta: {
-      title: 'Hello',
-    },
-    props: true,
+"import Foo from '@/pages/foo.vue';
+export default [{
+  name: 'Test',
+  path: '/foo',
+  component: Foo,
+  meta: {
+    \\"title\\": \\"Hello\\"
   },
-]
-"
+  props: true
+}];"
 `;
 
 exports[`Route template should not include name if the route has a default child 1`] = `
 "function Foo() {
-  return import(/* webpackChunkName: \\"foo\\" */ '@/pages/foo.vue')
-}
-function FooIndex() {
-  return import(/* webpackChunkName: \\"foo-index\\" */ '@/pages/foo/index.vue')
+  return import(
+  /* webpackChunkName: \\"foo\\" */
+  '@/pages/foo.vue');
 }
 
-export default [
-  {
-    path: '/foo',
-    component: Foo,
-    children: [
-      {
-        name: 'foo',
-        path: '',
-        component: FooIndex,
-      },
-    ],
-  },
-]
-"
+function FooIndex() {
+  return import(
+  /* webpackChunkName: \\"foo-index\\" */
+  '@/pages/foo/index.vue');
+}
+
+export default [{
+  path: '/foo',
+  component: Foo,
+  children: [{
+    name: 'foo',
+    path: '',
+    component: FooIndex
+  }]
+}];"
 `;
 
 exports[`Route template should pick chunkName as a webpack chunk name 1`] = `
 "function users_index() {
   return import(
-    /* webpackChunkName: \\"page-users-index\\" */ '@/pages/users/index.vue'
-  )
+  /* webpackChunkName: \\"page-users-index\\" */
+  '@/pages/users/index.vue');
 }
 
-export default [
-  {
-    name: 'users',
-    path: '/users',
-    component: users_index,
-  },
-]
-"
+export default [{
+  name: 'users',
+  path: '/users',
+  component: users_index
+}];"
 `;
