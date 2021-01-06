@@ -1,5 +1,5 @@
-import { parseComponent } from 'vue-template-compiler'
 import { NestedMap, setToMap } from './nested-map'
+import { parseSFC } from './parse-sfc'
 
 export interface PageMeta {
   name: string
@@ -56,9 +56,7 @@ function pathMapToMeta(
     }
 
     const content = readFile(path.join('/'))
-    const parsed = parseComponent(content, {
-      pad: 'space',
-    })
+    const parsed = parseSFC(content)
     const routeMetaBlock = parsed.customBlocks.find(
       (b) => b.type === routeMetaName
     )
