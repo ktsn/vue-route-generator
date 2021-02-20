@@ -233,7 +233,7 @@ function pathToSpecifier(segments: string[]): string {
     .join('_')
     .replace(/[^a-zA-Z0-9]/g, '_')
 
-  return /^\d/.test(replaced) ? '_' + replaced : replaced
+  return '_' + replaced
 }
 
 function pathToRoute(
