@@ -10,6 +10,7 @@ export interface GenerateConfig {
   dynamicImport?: boolean
   chunkNamePrefix?: string
   nested?: boolean
+  prettierOptions?: Record<string, any>
 }
 
 export function generateRoutes({
@@ -18,6 +19,7 @@ export function generateRoutes({
   dynamicImport = true,
   chunkNamePrefix = '',
   nested = false,
+  prettierOptions,
 }: GenerateConfig): string {
   const patterns = ['**/*.vue', '!**/__*__.vue', '!**/__*__/**']
 
@@ -35,5 +37,5 @@ export function generateRoutes({
     }
   )
 
-  return createRoutes(metaList, dynamicImport, chunkNamePrefix)
+  return createRoutes(metaList, dynamicImport, chunkNamePrefix, prettierOptions)
 }

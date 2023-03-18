@@ -61,7 +61,8 @@ function createImport(
 export function createRoutes(
   meta: PageMeta[],
   dynamic: boolean,
-  chunkNamePrefix: string
+  chunkNamePrefix: string,
+  prettierOptions?: Record<string, any>
 ): string {
   const imports = meta
     .map((m) => createImport(m, dynamic, chunkNamePrefix))
@@ -71,5 +72,6 @@ export function createRoutes(
     parser: 'babel',
     semi: false,
     singleQuote: true,
+    ...prettierOptions,
   })
 }
