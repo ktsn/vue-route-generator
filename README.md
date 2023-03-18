@@ -148,6 +148,7 @@ To enable syntax highlighting in VS Code using [Vetur's Custom Code Blocks](http
 - `dynamicImport`: Use dynamic import expression (`import()`) to import component (default `true`).
 - `chunkNamePrefix`: Prefix for each route chunk name (only available when `dynamicImport: true`).
 - `nested`: If `true`, generated route path will be always treated as nested. (e.g. will generate `path: 'foo'` rather than `path: '/foo'`)
+- `prettierOptions`: prettier format options for output file
 
 ## Related Projects
 
